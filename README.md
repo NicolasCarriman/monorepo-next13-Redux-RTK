@@ -50,5 +50,5 @@ Crear build:
 
 Correr la aplicacion:
 
-<pre><code>yarn start
+<pre><code>yarn dev
 </code></pre>
