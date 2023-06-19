@@ -1,0 +1,499 @@
+{
+  "name": "My Company",
+  "description": "A description of the company",
+  "teams": [
+    {
+      "departament": "Marketing",
+      "id": "marketing-team",
+      "teamCategory": [
+        {
+          "name": "Marketing Operativo",
+          "goals": [
+            "Incrementar la visibilidad de la marca",
+            "Generar leads"
+          ],
+          "tasks": [
+            "task-5",
+            "task-6",
+            "task-7"
+          ],
+          "usersId": [
+            "user-4",
+            "user-5"
+          ],
+          "categoryid": "marketing-operativo"
+        },
+        {
+          "name": "Marketing Estratégico",
+          "goals": [
+            "Definir la estrategia de marketing",
+            "Analizar la competencia"
+          ],
+          "tasks": [
+            "task-1",
+            "task-2",
+            "task-3",
+            "task-4"
+          ],
+          "usersId": [
+            "user-1",
+            "user-2",
+            "user-3"
+          ],
+          "categoryid": "marketing-estrategico"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "name": "Jane Rudolph",
+      "id": "user-1",
+      "departament": "Marketing Estratégico",
+      "tasks": ["task-1"]
+    },
+    {
+      "name": "Emily Brown",
+      "id": "user-2",
+      "departament": "Marketing Estratégico",
+      "tasks": ["task-1", "task-2", "task-3", "task-4"]
+    },
+    {
+      "name": "Alice Doe",
+      "id": "user-3",
+      "departament": "Marketing Estratégico",
+      "tasks": ["task-2"]
+    },
+    {
+      "name": "John Doe",
+      "id": "user-4",
+      "departament": "Marketing Operativo",
+      "tasks": ["task-5", "task-6", "task-7"]
+    },
+    {
+      "id": "user-5",
+      "name": "Laura López",
+      "departament": "Marketing Operativo"
+    },
+    {
+      "id": "user-6",
+      "name": "María López",
+      "departament": "Business Intelligence"
+    },
+    {
+      "id": "user-7",
+      "name": "Juan Ramírez",
+      "departament": "Business Intelligence"
+    },
+    {
+      "id": "user-8",
+      "name": "Laura García",
+      "departament": "Business Intelligence"
+    }
+  ],
+  "tasks": [
+    {
+      "taskName": "Análisis de mercado",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Realizar un análisis exhaustivo del mercado",
+      "taskCategory": "Marketing Estratégico",
+      "taskUsersId": [
+        "user-1"
+      ],
+      "taskPriority": "medium",
+      "taskStatus": "done",
+      "taskId": "task-1",
+      "subtasks": [
+        {
+          "name": "Investigación de competidores",
+          "id": "subtask-1",
+          "items": [
+            {
+              "item": "Analizar estrategias de los competidores",
+              "done": true
+            },
+            {
+              "item": "Identificar ventajas y desventajas",
+              "done": true
+            }
+          ]
+        },
+        {
+          "name": "Análisis de segmento de mercado",
+          "id": "subtask-2",
+          "items": [
+            {
+              "item": "Identificar público objetivo",
+              "done": true
+            },
+            {
+              "item": "Evaluar tamaño y características del mercado",
+              "done": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Definir objetivos de marketing",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Definir los objetivos estratégicos de marketing",
+      "taskCategory": "Marketing Estratégico",
+      "taskUsersId": [
+        "user-2",
+        "user-3"
+      ],
+      "taskPriority": "high",
+      "taskStatus": "inProgress",
+      "taskId": "task-2",
+      "subtasks": [
+        {
+          "name": "Objetivo 1",
+          "id": "subtask-3",
+          "items": [
+            {
+              "item": "Detallar el objetivo 1",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Objetivo 2",
+          "id": "subtask-4",
+          "items": [
+            {
+              "item": "Detallar el objetivo 2",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Elaborar plan de marketing",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Crear un plan de marketing detallado",
+      "taskCategory": "Marketing Estratégico",
+      "taskUsersId": [
+        "user-2"
+      ],
+      "taskPriority": "low",
+      "taskStatus": "stuck",
+      "taskId": "task-3",
+      "subtasks": [
+        {
+          "name": "Plan de acción",
+          "id": "subtask-5",
+          "items": [
+            {
+              "item": "Definir estrategias de marketing",
+              "done": false
+            },
+            {
+              "item": "Establecer acciones concretas",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Medición de resultados",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Analizar y medir los resultados de las estrategias de marketing",
+      "taskCategory": "Marketing Operativo",
+      "taskUsersId": [
+        "user-3",
+        "user-2"
+      ],
+      "taskPriority": "medium",
+      "taskStatus": "inProgress",
+      "taskId": "task-4",
+      "subtasks": [
+        {
+          "name": "Análisis de métricas",
+          "id": "subtask-12",
+          "items": [
+            {
+              "item": "Evaluar el rendimiento de las campañas",
+              "done": false
+            },
+            {
+              "item": "Identificar áreas de mejora",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Generación de informes",
+          "id": "subtask-13",
+          "items": [
+            {
+              "item": "Crear informes detallados",
+              "done": false
+            },
+            {
+              "item": "Presentar los resultados al equipo",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Gestión de redes sociales",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Administrar y mantener las redes sociales",
+      "taskCategory": "Marketing Operativo",
+      "taskUsersId": [
+        "user-4"
+      ],
+      "taskPriority": "high",
+      "taskStatus": "inProgress",
+      "taskId": "task-5",
+      "subtasks": [
+        {
+          "name": "Creación de perfiles",
+          "id": "subtask-8",
+          "items": [
+            {
+              "item": "Crear perfiles en redes sociales relevantes",
+              "done": false
+            },
+            {
+              "item": "Configurar la información de los perfiles",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Publicación de contenido",
+          "id": "subtask-9",
+          "items": [
+            {
+              "item": "Programar y publicar contenido regularmente",
+              "done": false
+            },
+            {
+              "item": "Interactuar con los seguidores",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Email marketing",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Realizar campañas de email marketing",
+      "taskCategory": "Marketing Operativo",
+      "taskUsersId": [
+        "user-4"
+      ],
+      "taskPriority": "low",
+      "taskStatus": "done",
+      "taskId": "task-6",
+      "subtasks": [
+        {
+          "name": "Segmentación de audiencia",
+          "id": "subtask-10",
+          "items": [
+            {
+              "item": "Dividir la audiencia en segmentos",
+              "done": true
+            },
+            {
+              "item": "Personalizar los mensajes para cada segmento",
+              "done": true
+            }
+          ]
+        },
+        {
+          "name": "Diseño de plantillas",
+          "id": "subtask-11",
+          "items": [
+            {
+              "item": "Crear plantillas de email atractivas",
+              "done": true
+            },
+            {
+              "item": "Asegurarse de que sean responsivas",
+              "done": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskName": "Creación de contenido",
+      "taskDate": "2023-06-11",
+      "taskDescription": "Generar contenido creativo y atractivo" ,
+      "taskCategory": "Marketing Operativo",
+      "taskUsersId": [
+        "user-4"
+      ],
+      "taskPriority": "high",
+      "taskStatus": "inProgress",
+      "taskId": "task-7",
+      "subtasks": [
+        {
+          "name": "Investigación de temas",
+          "id": "subtask-6",
+          "items": [
+            {
+              "item": "Identificar temas relevantes",
+              "done": false
+            },
+            {
+              "item": "Realizar investigación de palabras clave",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Redacción de contenidos",
+          "id": "subtask-7",
+          "items": [
+            {
+              "item": "Escribir artículos informativos",
+              "done": false
+            },
+            {
+              "item": "Crear contenido visual atractivo",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskId": "task-8",
+      "taskName": "Análisis de ventas",
+      "taskDate": "2022-06-01",
+      "taskDescription": "Realizar un análisis detallado de las ventas del último trimestre.",
+      "taskCategory": "Business Intelligence",
+      "taskUsersId": [
+        "user-6",
+        "user-7"
+      ],
+      "taskPriority": "medium",
+      "taskStatus": "inProgress",
+      "subtasks": [
+        {
+          "name": "Recopilación de datos",
+          "id": "subtask-1",
+          "items": [
+            {
+              "item": "Obtener los informes de ventas mensuales",
+              "done": false
+            },
+            {
+              "item": "Revisar los registros de transacciones",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Análisis estadístico",
+          "id": "subtask-2",
+          "items": [
+            {
+              "item": "Calcular el promedio de ventas mensuales",
+              "done": false
+            },
+            {
+              "item": "Identificar las tendencias de ventas",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskId": "task-9",
+      "taskName": "Optimización de procesos",
+      "taskDate": "2022-06-10",
+      "taskDescription": "Identificar oportunidades de mejora en los procesos de negocio.",
+      "taskCategory": "Business Intelligence",
+      "taskUsersId": [
+        "user-8"
+      ],
+      "taskPriority": "high",
+      "taskStatus": "stuck",
+      "subtasks": [
+        {
+          "name": "Análisis de procesos actuales",
+          "id": "subtask-3",
+          "items": [
+            {
+              "item": "Mapear los procesos existentes",
+              "done": false
+            },
+            {
+              "item": "Identificar los cuellos de botella",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Propuestas de mejora",
+          "id": "subtask-4",
+          "items": [
+            {
+              "item": "Investigar mejores prácticas del sector",
+              "done": false
+            },
+            {
+              "item": "Diseñar soluciones para optimizar los procesos",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskId": "task-10",
+      "taskName": "Generación de informes",
+      "taskDate": "2022-06-15",
+      "taskDescription": "Elaborar informes y reportes ejecutivos sobre el rendimiento de la empresa.",
+      "taskCategory": "Business Intelligence",
+      "taskUsersId": [
+        "user-6",
+        "user-7",
+        "user-8"
+      ],
+      "taskPriority": "low",
+      "taskStatus": "done",
+      "subtasks": [
+        {
+          "name": "Recopilación de datos",
+          "id": "subtask-5",
+          "items": [
+            {
+              "item": "Obtener los datos relevantes de los diferentes departamentos",
+              "done": true
+            },
+            {
+              "item": "Organizar la información recopilada",
+              "done": true
+            }
+          ]
+        },
+        {
+          "name": "Elaboración de informes",
+          "id": "subtask-6",
+          "items": [
+            {
+              "item": "Crear gráficos y tablas para visualizar los datos",
+              "done": true
+            },
+            {
+              "item": "Generar informes ejecutivos",
+              "done": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
