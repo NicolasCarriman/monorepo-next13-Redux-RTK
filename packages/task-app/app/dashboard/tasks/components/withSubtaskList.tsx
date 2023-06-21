@@ -5,6 +5,7 @@ import Input from '@app/components/common/input';
 import React, { useState } from 'react';
 import { useTask } from '@app/hooks/useTasks';
 import { subtaskItem } from '@core/models';
+import { getRandomId } from '@app/utils';
 
 interface SubtaskController {
   children: React.ReactNode;
@@ -29,7 +30,8 @@ function SubtaskController({
   const taskName = getCurrentTask(taskState.currentTask).taskName;
   const newItem: subtaskItem = {
     item: value,
-    done: false
+    done: false,
+    id: getRandomId()
   };
 
   const handleClick = () => {

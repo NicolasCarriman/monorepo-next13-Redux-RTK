@@ -50,25 +50,38 @@
       "name": "Jane Rudolph",
       "id": "user-1",
       "departament": "Marketing Estratégico",
-      "tasks": ["task-1"]
+      "tasks": [
+        "task-1"
+      ]
     },
     {
       "name": "Emily Brown",
       "id": "user-2",
       "departament": "Marketing Estratégico",
-      "tasks": ["task-1", "task-2", "task-3", "task-4"]
+      "tasks": [
+        "task-1",
+        "task-2",
+        "task-3",
+        "task-4"
+      ]
     },
     {
       "name": "Alice Doe",
       "id": "user-3",
       "departament": "Marketing Estratégico",
-      "tasks": ["task-2"]
+      "tasks": [
+        "task-2"
+      ]
     },
     {
       "name": "John Doe",
       "id": "user-4",
       "departament": "Marketing Operativo",
-      "tasks": ["task-5", "task-6", "task-7"]
+      "tasks": [
+        "task-5",
+        "task-6",
+        "task-7"
+      ]
     },
     {
       "id": "user-5",
@@ -110,11 +123,13 @@
           "items": [
             {
               "item": "Analizar estrategias de los competidores",
-              "done": true
+              "done": true,
+              "id": "item-1"
             },
             {
               "item": "Identificar ventajas y desventajas",
-              "done": true
+              "done": true,
+              "id": "item-2"
             }
           ]
         },
@@ -124,11 +139,13 @@
           "items": [
             {
               "item": "Identificar público objetivo",
-              "done": true
+              "done": true,
+              "id": "item-3"
             },
             {
               "item": "Evaluar tamaño y características del mercado",
-              "done": true
+              "done": true,
+              "id": "item-4"
             }
           ]
         }
@@ -153,7 +170,8 @@
           "items": [
             {
               "item": "Detallar el objetivo 1",
-              "done": false
+              "done": false,
+              "id": "item-5"
             }
           ]
         },
@@ -163,7 +181,8 @@
           "items": [
             {
               "item": "Detallar el objetivo 2",
-              "done": false
+              "done": false,
+              "id": "item-6"
             }
           ]
         }
@@ -187,11 +206,13 @@
           "items": [
             {
               "item": "Definir estrategias de marketing",
-              "done": false
+              "done": false,
+              "id": "item-7"
             },
             {
               "item": "Establecer acciones concretas",
-              "done": false
+              "done": false,
+              "id": "item-8"
             }
           ]
         }
@@ -216,11 +237,13 @@
           "items": [
             {
               "item": "Evaluar el rendimiento de las campañas",
-              "done": false
+              "done": false,
+              "id": "item-9"
             },
             {
               "item": "Identificar áreas de mejora",
-              "done": false
+              "done": false,
+              "id": "item-10"
             }
           ]
         },
@@ -230,11 +253,13 @@
           "items": [
             {
               "item": "Crear informes detallados",
-              "done": false
+              "done": false,
+              "id": "item-11"
             },
             {
               "item": "Presentar los resultados al equipo",
-              "done": false
+              "done": false,
+              "id": "item-12"
             }
           ]
         }
@@ -258,11 +283,13 @@
           "items": [
             {
               "item": "Crear perfiles en redes sociales relevantes",
-              "done": false
+              "done": false,
+              "id": "item-13"
             },
             {
               "item": "Configurar la información de los perfiles",
-              "done": false
+              "done": false,
+              "id": "item-14"
             }
           ]
         },
@@ -272,11 +299,13 @@
           "items": [
             {
               "item": "Programar y publicar contenido regularmente",
-              "done": false
+              "done": false,
+              "id": "item-15"
             },
             {
               "item": "Interactuar con los seguidores",
-              "done": false
+              "done": false,
+              "id": "item-16"
             }
           ]
         }
@@ -300,11 +329,13 @@
           "items": [
             {
               "item": "Dividir la audiencia en segmentos",
-              "done": true
+              "done": true,
+              "id": "item-17"
             },
             {
               "item": "Personalizar los mensajes para cada segmento",
-              "done": true
+              "done": true,
+              "id": "item-18"
             }
           ]
         },
@@ -314,11 +345,13 @@
           "items": [
             {
               "item": "Crear plantillas de email atractivas",
-              "done": true
+              "done": true,
+              "id": "item-19"
             },
             {
               "item": "Asegurarse de que sean responsivas",
-              "done": true
+              "done": true,
+              "id": "item-20"
             }
           ]
         }
@@ -327,7 +360,7 @@
     {
       "taskName": "Creación de contenido",
       "taskDate": "2023-06-11",
-      "taskDescription": "Generar contenido creativo y atractivo" ,
+      "taskDescription": "Generar contenido creativo y atractivo",
       "taskCategory": "Marketing Operativo",
       "taskUsersId": [
         "user-4"
@@ -342,11 +375,13 @@
           "items": [
             {
               "item": "Identificar temas relevantes",
-              "done": false
+              "done": false,
+              "id": "item-21"
             },
             {
               "item": "Realizar investigación de palabras clave",
-              "done": false
+              "done": false,
+              "id": "item-22"
             }
           ]
         },
@@ -356,11 +391,13 @@
           "items": [
             {
               "item": "Escribir artículos informativos",
-              "done": false
+              "done": false,
+              "id": "item-23"
             },
             {
               "item": "Crear contenido visual atractivo",
-              "done": false
+              "done": false,
+              "id": "item-24"
             }
           ]
         }
@@ -385,11 +422,13 @@
           "items": [
             {
               "item": "Obtener los informes de ventas mensuales",
-              "done": false
+              "done": false,
+              "id": "item-25"
             },
             {
               "item": "Revisar los registros de transacciones",
-              "done": false
+              "done": false,
+              "id": "item-26"
             }
           ]
         },
@@ -399,11 +438,13 @@
           "items": [
             {
               "item": "Calcular el promedio de ventas mensuales",
-              "done": false
+              "done": false,
+              "id": "subtask-27"
             },
             {
               "item": "Identificar las tendencias de ventas",
-              "done": false
+              "done": false,
+              "id": "item-28"
             }
           ]
         }
@@ -427,11 +468,13 @@
           "items": [
             {
               "item": "Mapear los procesos existentes",
-              "done": false
+              "done": false,
+              "id": "item-29"
             },
             {
               "item": "Identificar los cuellos de botella",
-              "done": false
+              "done": false,
+              "id": "item-30"
             }
           ]
         },
@@ -441,11 +484,13 @@
           "items": [
             {
               "item": "Investigar mejores prácticas del sector",
-              "done": false
+              "done": false,
+              "id": "item-31"
             },
             {
               "item": "Diseñar soluciones para optimizar los procesos",
-              "done": false
+              "done": false,
+              "id": "item-32"
             }
           ]
         }
@@ -471,11 +516,13 @@
           "items": [
             {
               "item": "Obtener los datos relevantes de los diferentes departamentos",
-              "done": true
+              "done": true,
+              "id": "item-33"
             },
             {
               "item": "Organizar la información recopilada",
-              "done": true
+              "done": true,
+              "id":"item-34"
             }
           ]
         },
@@ -485,11 +532,13 @@
           "items": [
             {
               "item": "Crear gráficos y tablas para visualizar los datos",
-              "done": true
+              "done": true,
+              "id": "item-35"
             },
             {
               "item": "Generar informes ejecutivos",
-              "done": true
+              "done": true,
+              "id": "item-36"
             }
           ]
         }

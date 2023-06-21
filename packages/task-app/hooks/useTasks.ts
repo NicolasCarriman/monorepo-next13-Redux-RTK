@@ -128,15 +128,17 @@ export const useTask = () => {
     dispatch(updateTask(updatedTask));
   };
 
-  const setSubtaskItem = (done: boolean, id: string) => {
+  const setSubtaskItem = (done: boolean, id: string, item: string) => {
     const tasks = taskState.tasks;
     const taskId = taskState.currentTask;
     const subtaskId = taskState.currentSubtask;
     const currentTask: ITask | undefined = tasks.find((t: ITask) => t.taskId === taskId);
     const newItem: subtaskItem = {
-      item: id,
-      done: done
+      item: item,
+      done: done,
+      id: id,
     };
+
 
     if (!currentTask?.subtasks) return;
     const subtasks = currentTask.subtasks;
@@ -146,7 +148,7 @@ export const useTask = () => {
     // check if current subtask exists in the store
 
     const updatedItem = currentSubtask.items.map((item) => {
-      if (item.item === id) return newItem;
+      if (item.id === id) return newItem;
       else return item;
     });
 
