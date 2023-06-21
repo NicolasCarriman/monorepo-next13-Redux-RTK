@@ -1,10 +1,9 @@
 'use client';
 
-import { useAppDispatch } from '@app/hooks/redux';
 import { TableContent } from './taskTable.styled';
 import { ITask } from '@core/models/task.model';
 import React from 'react';
-import { deleteTask } from '@core/redux/reducers/taskSlice/task.slice';
+import { useTask } from '@app/hooks/useTasks';
 
 interface TaskTableProps {
   data?: ITask[] | null;
@@ -12,10 +11,10 @@ interface TaskTableProps {
 }
 
 function TaskTable({ data }: TaskTableProps) {
-  const dispatch = useAppDispatch();
+  const { deleteCurrentTask } = useTask();
 
   const handleDelete = (id: string) => {
-    dispatch(deleteTask(id));
+    deleteCurrentTask(id);
   };
 
   return (

@@ -8,8 +8,8 @@ export async function GET(req: Request) {
 
   let taskData ={
     tasks: project.tasks,
-    currentSubtask: 'subtask-3' ,
-    currentTask: 'task-2'
+    currentSubtask: '' ,
+    currentTask: ''
   };
 
   if (name) {

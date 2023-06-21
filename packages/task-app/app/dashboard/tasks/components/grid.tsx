@@ -5,12 +5,10 @@ import Carrousel from '../../../../components/ui/carrousel/carrousel';
 import TeamCategoryCard from '../../../../components/ui/teamCategoryCard.tsx/teamCategoryCard';
 import SubtaskManager from '../../../../components/ui/subtaskManager/subtaskManager';
 import DateComponent from '../../../../components/common/date';
-import RoundedBox from '../../../../components/common/box';
-import { useAppSelector } from '@app/hooks/redux';
 import { useTeam } from '@app/hooks/useTeam';
-import { taskSelector } from '@core/redux/reducers/taskSlice/task.selector';
 import { useTask } from '@app/hooks/useTasks';
-import { PercentageCalculator } from '../../../../components/ui/utilis/percentageAnalyzer';
+import ProgressComponent from './progress';
+import RoundedBox from '@app/components/common/box';
 
 /**
  * todo: this function needs implement refactorization
@@ -20,26 +18,15 @@ function GridComponent() {
 
   const [tasksId, setTaskId] = useState<string[]>([]);
   const { getCurrentTeamTasks, getCurrentCategory, team } = useTeam();
-  const { getCurrentTask, getAllSubtasksItems } = useTask();
-  const taskState = useAppSelector(taskSelector);
+  const { taskState, getCurrentTask } = useTask();
   const date = new Date();
   const today = `${date.getMonth() + 1}/${date.getDate()}`;
 
   const tasks = getCurrentTeamTasks(tasksId);
+  const selectedTask = getCurrentTask(taskState.currentTask);
   const categoryId = team.currentCategoryId;
   const category = categoryId && getCurrentCategory(categoryId);
-  const currentTaskId = taskState.currentTask;
-  const currentTask = getCurrentTask(currentTaskId);
-  const taskItems =  getAllSubtasksItems();
-  const taskProgress = new PercentageCalculator;
-  const progress = getTaskProgress();
 
-  function getTaskProgress() {
-    if(!taskItems) return;
-
-    const doneItems: boolean[] = taskItems.map((i) => i.done);
-    return taskProgress.getTruePercentaje(doneItems);;
-  };
 
   const validateCategory = () => {
     if (!category) {
@@ -84,12 +71,13 @@ function GridComponent() {
         <div className='h-full flex pl-2 pr-2 flex-col justify-center gap-2 items-start w-full'>
           <p className='sticky top-0 bg-gray-800 w-full text-white font-medium text-lg'>Task Description</p>
           <div className=' overflow-auto max-h-[12vh] h-full'>
-            {
-              currentTask &&
               <p className='text-white '>
-                {currentTask.taskDescription}
-              </p>
-            }
+                {
+                taskState.currentTask ?
+                  selectedTask.taskDescription :
+                  'Aún no has seleccionado una tarea.'
+                }
+              </p>  
           </div>
         </div>
       </div>
@@ -100,15 +88,13 @@ function GridComponent() {
       </div>
       <div className='col-span-2'>
         <RoundedBox>
-          {
-            progress ?
-            <p className='font-medium text-lg'>
-              COMPLETED {progress}%
-            </p> :
-            <p className='font-medium text-lg'>
-              COMPLETED 0%
-            </p>
-          }
+        {
+          taskState.currentTask ?
+          <ProgressComponent /> :
+          <p className='font-medium text-blue-200'>
+             Aún no has seleccionado una tarea.
+          </p>
+        }
         </RoundedBox>
       </div>
     </div>

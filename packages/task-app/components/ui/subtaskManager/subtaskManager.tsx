@@ -37,25 +37,24 @@ function SubtaskManager() {
   return (
     <RoundedBox>
       <div className='flex flex-row max-h-[40vh] min-h-[35vh] w-[100%] gap-2'>
-        <SubtaskController>
-          {
-            subtask ?
-              <SubtaskList subtask={subtask} onChange={handleChange} />
-              :
-              <div className='flex flex-col justify-center items-center text-center gap-4 w-full'>
-                <h2 className='text-lg font-medium'>
-                  ¡Oops! Parece que hay un pequeño problema 😅
-                </h2>
-                <p>
-                  🚫⚙️ Tarea inexistente
-                </p>
-                <p>
-                  📝 ¡Hola! notamos que no se ha seleccionado ninguna tarea o no se ha creado ninguna.
-                  Esto podría deberse a un olvido o a un malentendido.
-                </p>
-              </div>
-          }
-        </SubtaskController>
+        { subtask ?
+          <SubtaskController>
+            <SubtaskList subtask={subtask} onChange={handleChange} />
+          </SubtaskController>
+          :
+          <div className='flex flex-col justify-center items-center text-center gap-4 w-full'>
+            <h2 className='text-lg font-medium'>
+              ¡Oops! Parece que hay un pequeño problema 😅
+            </h2>
+            <p>
+              🚫⚙️ Tarea inexistente
+            </p>
+            <p>
+              📝 ¡Hola! notamos que no se ha seleccionado ninguna tarea o no se ha creado ninguna.
+              Esto podría deberse a un olvido o a un malentendido.
+            </p>
+          </div>
+        }
         <div className='grow-0  shrink-1 w-[30%] h-full max-h-[34vh] min-height-[40vh] justify-center items-center'>
           {
             task && task.subtasks && (

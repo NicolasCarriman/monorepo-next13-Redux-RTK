@@ -1,17 +1,22 @@
 'use client';
 
-import { useAppSelector } from '@app/hooks/redux';
-import { IProject } from '@core/models';
 import React from 'react';
 
-export const CurrentProject = () => {
+interface CurrentProjectProps {
+  project: string;
+}
 
-  const project = useAppSelector((state) => state.project) as Partial<IProject>;
+export const CurrentProject: React.FC<CurrentProjectProps> = (
+  {
+    project
+  }
+) => {
+
   return (
-    <p
+    <button
       className='font-bold cursor-pointer'
     >
-      {project.name && project.name}
-    </p>
+      {project}
+    </button>
   );
 };

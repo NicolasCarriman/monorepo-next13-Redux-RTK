@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from './redux';
 import { TaskState } from '@core/redux/reducers/taskSlice/task.state';
 import {
   addSubtask,
+  deleteTask,
   selectCurrentSubtask,
   selectCurrentTask,
   updateTask
@@ -59,6 +60,14 @@ export const useTask = () => {
       const currentTask = getCurrentTask(taskState.currentTask);
       return currentTask.taskId;
     }
+  };
+
+  const deleteCurrentTask = (id: string) => {
+    if (id === taskState.currentTask) {
+      dispatch(selectCurrentTask(''));
+      setSubTaskId('');
+    }
+    dispatch(deleteTask(id));
   };
 
   /**
@@ -211,6 +220,7 @@ export const useTask = () => {
     addNewSubtask,
     setSubtaskItem,
     getAllSubtasksItems,
+    deleteCurrentTask,
     taskState
   };
 };
