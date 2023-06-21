@@ -37,6 +37,12 @@ El proyecto está construido utilizando Lerna para dividir el núcleo de la apli
 
 <br>
 
+<h2>Features</h2>
+<ul>
+  <li><p>Personal task manager</p></li>
+  <li><p>Table task filter</p></li>
+</ul>
+
 
 Instalar librerias:
 
