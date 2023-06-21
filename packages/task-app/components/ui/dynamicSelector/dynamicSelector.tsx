@@ -18,12 +18,12 @@ type selectableElement = {
 interface DynamicSelectorProps {
   title: React.ReactNode;
   elements: selectableElement[];
-  selectedIndex: number;
   // eslint-disable-next-line no-unused-vars
   onSelect: (id: string) => void;
   // eslint-disable-next-line no-unused-vars
   onClick?: (text: string) => void;
   newTabElement?: React.ReactNode;
+  selectedId: string;
 }
 /**
  * this component is responsible to provide a simple selectable interface
@@ -38,12 +38,11 @@ interface DynamicSelectorProps {
 function DynamicSelector({
   title,
   elements,
-  selectedIndex,
   onSelect,
   onClick,
-  newTabElement
+  newTabElement,
+  selectedId
 }: DynamicSelectorProps) {
-  const [selected, setSelected] = useState(elements[selectedIndex].id);
   const [content, setContent ] = useState('');
   const [slide, setSlide] = useState(false);
   const [render, setRender] = useState('tabs');
@@ -53,7 +52,7 @@ function DynamicSelector({
 
   //todo: make a customHook
   const isSelected = (id: string) => {
-    if (id === selected) {
+    if (id === selectedId) {
       return true;
     } else return false;
   };
@@ -64,7 +63,6 @@ function DynamicSelector({
   };
 
   const handleSelect = (id: string) => {
-    setSelected(id);
     onSelect(id);
   };
 

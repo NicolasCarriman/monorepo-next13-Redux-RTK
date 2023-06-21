@@ -21,8 +21,7 @@ function TeamCategoryCard() {
 
   if (!currentCategory) return null;
 
-  const { goals, categoryid } = currentCategory;
-  const selectedIndex = teamCategory.findIndex((c: ITeamCategory) => c.categoryid === categoryid);
+  const { goals } = currentCategory;
 
   const handleClick = (categoryName: string) => {
     addCategoryByName(categoryName);
@@ -52,7 +51,7 @@ function TeamCategoryCard() {
           >
             <DynamicSelector
               onSelect={setCurrenCategory}
-              selectedIndex={selectedIndex}
+              selectedId={currentCategoryId}
               title={departament}
               elements={elements}
               onClick={handleClick}

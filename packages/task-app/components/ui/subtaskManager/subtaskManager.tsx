@@ -62,7 +62,7 @@ function SubtaskManager() {
               <DynamicSelector
                 title='subtask'
                 elements={task.subtasks}
-                selectedIndex={0}
+                selectedId={subtaskId}
                 onSelect={(id) => setSubTaskId(id)}
                 onClick={(subtaskName) => addNewSubtask(subtaskName)}
                 newTabElement={'Crear subtarea'}
