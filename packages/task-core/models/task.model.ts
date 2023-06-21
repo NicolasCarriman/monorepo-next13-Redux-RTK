@@ -4,9 +4,10 @@ export type statusType = 'done' | 'stuck' | 'inProgress';
 export type priorityType = 'high' | 'low' | 'none' | 'medium';
 export type taskId = string;
 
-type subtaskItem = {
+export type subtaskItem = {
   item: string;
-  done: boolean
+  done: boolean;
+  id: string;
 }
 
 export type subtask = {
