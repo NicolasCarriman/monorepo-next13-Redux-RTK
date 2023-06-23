@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { taskState } from './task.state';
-import { ITask, subtask, subtaskItem } from '../../../models';
-import { store } from 'redux/store/store';
+import { ITask, subtask } from '../../../models';
 
 const taskSlice = createSlice({
   name: 'tasks',

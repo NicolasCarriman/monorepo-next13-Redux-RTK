@@ -9,7 +9,7 @@ export type category = {
 export interface ProjectTeam {
   departament: string,
   id: string,
-  category: category[],
+  categories: category[],
 }
 
 export interface IProject {

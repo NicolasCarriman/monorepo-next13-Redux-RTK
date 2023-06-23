@@ -23,7 +23,7 @@ interface DynamicSelectorProps {
   // eslint-disable-next-line no-unused-vars
   onClick?: (text: string) => void;
   newTabElement?: React.ReactNode;
-  selectedId: string;
+  selectedId: string | undefined;
 }
 /**
  * this component is responsible to provide a simple selectable interface

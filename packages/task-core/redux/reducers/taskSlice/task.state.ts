@@ -1,4 +1,4 @@
-import { ITask, taskId } from "models";
+import { ITask, taskId } from "../../../models";
 
 export interface TaskState {
   tasks: ITask[];

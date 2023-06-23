@@ -8,7 +8,7 @@ import { userSelector } from '@core/redux/reducers/userSlice/user.selector';
 
 interface useTeamsHook {
   //eslint-disable-next-line
-  getCurrentCategory: (cateogryId: string) => ITeamCategory | undefined;
+  getCurrentCategory: (cateogryId: string | undefined) => ITeamCategory | undefined;
   //eslint-disable-next-line
   getCurrentTeamTasks: (tasksId: taskId[]) => ITask[];
   //eslint-disable-next-line
@@ -37,7 +37,8 @@ export const useTeam = (): useTeamsHook => {
     return currentCategory?.categoryid;
   };
 
-  const getCurrentCategory = (cateogryId: string) => {
+  const getCurrentCategory = (cateogryId: string | undefined) => {
+    if (!cateogryId) return;
     const currentCategory = team.teamCategory.find((c) => c.categoryid === cateogryId);
     return currentCategory;
   };

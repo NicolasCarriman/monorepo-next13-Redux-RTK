@@ -12,7 +12,7 @@ import { useTask } from '@app/hooks/useTasks';
 import { useTeam } from '@app/hooks/useTeam';
 import { getRandomId } from '@app/utils';
 import { taskPriorities } from '@app/utils/priority';
-import { ITask, ITeam, ITeamCategory, ProjectTeam, category, priorityType } from '@core/models';
+import { ITask, ITeam, ITeamCategory, ProjectTeam, category, priorityType, IUser } from '@core/models';
 import { projectSelector } from '@core/redux/reducers/projectSlice/project.selector';
 import React, { useState } from 'react';
 
@@ -36,10 +36,10 @@ function TaskForm({
   const { addNewTask } = useTask();
   const project = useAppSelector(projectSelector);
 
-  const users = project.users;
-  const teams = project.teams;
-  const currentTeam = selectedTeam && teams.find((t: ProjectTeam) => t.id === selectedTeam.id);
-  const categories: ITeamCategory[] = currentTeam && currentTeam.categories;
+  const users = project.users as IUser[];
+  const teams = project.teams as ProjectTeam[];
+  const currentTeam = selectedTeam && teams?.find((t: ProjectTeam) => t.id === selectedTeam.id);
+  const categories: category[] | undefined = currentTeam && currentTeam.categories;
   const isNewTeam = !currentTeam;
   const priorities = taskPriorities;
 
@@ -231,7 +231,7 @@ function TaskForm({
               <InputSearch
                 name='category'
                 placeHolder='category'
-                data={categories}
+                data={categories ? categories : []}
                 render={
                   (category: category, fn) => (
                     <ListItem

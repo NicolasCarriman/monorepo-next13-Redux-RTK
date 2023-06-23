@@ -22,7 +22,8 @@ export const useTask = () => {
 
   const getCurrentTask = (taskId: string) => {
     const tasks = taskState.tasks;
-    const currentTask: ITask = tasks.find((t: ITask) => t.taskId === taskId);
+    const currentTask: ITask | undefined = tasks.find((t: ITask) => t.taskId === taskId);
+    if (!currentTask) return tasks[0];
     return currentTask;
   };
 
