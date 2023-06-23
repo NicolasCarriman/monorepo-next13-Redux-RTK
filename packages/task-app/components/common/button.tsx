@@ -1,16 +1,25 @@
-import React, { MouseEventHandler } from 'react';
+import React, {  MouseEventHandler } from 'react';
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'small' | 'medium' | 'large';
   leftIcon?: React.ReactNode;
   children?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  onClick?: MouseEventHandler<HTMLButtonElement> ;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   variant?: 'default' | 'filter' | 'iconButton' | 'animated';
   disabled?: boolean;
 }
 
-function ButtonComponent({ disabled = false, onClick, size, leftIcon, children, rightIcon, variant = 'default' }: Props) {
+function ButtonComponent({
+  disabled = false,
+  onClick,
+  size,
+  leftIcon,
+  children,
+  rightIcon,
+  variant = 'default',
+  ...rest
+}: Props) {
   let width: string;
 
   switch (size) {
@@ -30,9 +39,9 @@ function ButtonComponent({ disabled = false, onClick, size, leftIcon, children, 
 
   const variantStyle = {
     default: `task-button bg-transparent ${width} rounded-lg text-gray-700 ` +
-                'font-light flex flex-row justify-center items-center hover:text-white hover:bg-blue-200',
+      'font-light flex flex-row justify-center items-center hover:text-white hover:bg-blue-200',
     filter: `task-button text-gray-500 bg-transparent ${width} rounded-lg ` +
-            'font-medium hover:text-blue-100 flex flex-row justify-center items-center shadow-sm shadow-gray-500/40',
+      'font-medium hover:text-blue-100 flex flex-row justify-center items-center shadow-sm shadow-gray-500/40',
     iconButton: 'flex justify-left w-[100%] m-w-max items-center h-[4vh] p-4 rounded-lg text-blue-200 font-light hover:text-white hover:bg-blue-200 disabled:bg-transparent disabled:text-gray-500',
     animated: `${width} text-blue-200 transition-all duration-500 hover:rotate-180`
   };
@@ -42,6 +51,7 @@ function ButtonComponent({ disabled = false, onClick, size, leftIcon, children, 
       className={variantStyle[variant]}
       onClick={onClick}
       disabled={disabled}
+      {...rest}
     >
       {leftIcon && <span className="mr-2">{leftIcon}</span>}
       {children}

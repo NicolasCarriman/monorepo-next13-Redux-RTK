@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import Card from '../../card/card';
 import DynamicSelector from '../dynamicSelector/dynamicSelector';
 import { teamSelector } from '@core/redux/reducers/teamSlice/team.selector';
 import { useAppSelector } from '@app/hooks/redux';
 import { useTeam } from '@app/hooks/useTeam';
 import { ITeamCategory } from '@core/models';
 import { TextBox } from '@app/components/common/textBox';
+import Card from '@app/components/common/card';
 
 function TeamCategoryCard() {
   const [ newGoal, setNewGoal ] = React.useState(

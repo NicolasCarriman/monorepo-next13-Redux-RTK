@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface TaskProps {
   children: React.ReactNode;
@@ -12,11 +13,11 @@ export const TaskContainer: React.FC<TaskProps> = ({ children }) => {
   );
 };
 
-interface TaskPriorityProps {
+interface TaskPriorityProps extends HTMLAttributes<HTMLDivElement> {
   priority: 'high' |  'low' | 'none' | 'medium'
 }
 
-export const TaskPriority: React.FC<TaskPriorityProps> = ({ priority }) => {
+export const TaskPriority: React.FC<TaskPriorityProps> = ({ priority, ...rest }) => {
   let fontColor;
 
   switch(priority) {
@@ -41,6 +42,7 @@ export const TaskPriority: React.FC<TaskPriorityProps> = ({ priority }) => {
   return (
     <p
       className={taskPriorityClass}
+      {...rest}
     >
       {priority}
     </p>
@@ -94,15 +96,23 @@ export const TaskStatus: React.FC<TaskStatusProps> = ({ status }) => {
 
 interface TaskTagsProps {
   children: React.ReactNode;
+  variant?: 'small' | 'medium';
 }
 
-export const TaskTags: React.FC<TaskTagsProps> = ({ children }) => {
-  const tagsClass = 'flex content-center items-center max-w-min text-white ' + 
-                    'bg-blue-200 h-8 font-medium p-6 rounded-lg';
-  
+export const TaskTags: React.FC<TaskTagsProps> = ({ children, variant = 'medium' }) => {
+
   return (
     <div
-      className={tagsClass}
+      className={twMerge(`
+      flex 
+      justify-center 
+      items-center 
+      text-white 
+      bg-blue-200 
+      rounded-lg
+      gap-2
+      `, variant === 'medium' ? 'max-w-min font-medium p-6 h-8' : 'whitespace-nowrap max-w-max font-light p-3 rounded-xl h-4'
+      )}
     >
       {children}
     </div>

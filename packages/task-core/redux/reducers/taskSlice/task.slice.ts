@@ -75,6 +75,7 @@ const taskSlice = createSlice({
 
 export const {
   setTask,
+  addTask,
   selectCurrentTask,
   deleteTask,
   selectCurrentSubtask,
