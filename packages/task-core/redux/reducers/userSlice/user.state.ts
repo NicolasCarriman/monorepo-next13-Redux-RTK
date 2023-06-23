@@ -1,4 +1,4 @@
-import { IUser } from "models";
+import { IUser } from "../../../models";
 
 export const userState: IUser = {
   name: "",

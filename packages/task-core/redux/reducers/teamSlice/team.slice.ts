@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { teamState } from './team.state';
-import { ITeamCategory } from 'models';
+import { ITeamCategory } from '../../../models';
 
 const teamSlice = createSlice({
   name: 'team',
