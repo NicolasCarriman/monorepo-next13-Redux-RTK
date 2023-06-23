@@ -1,21 +1,41 @@
 'use client';
-import React from 'react';
-import { ITask } from '@core/models/task.model';
+import React, { useState } from 'react';
+import { ITask, statusType } from '@core/models/task.model';
 import Card from '@app/components/common/card';
 import { TaskPriority, TaskStatus } from '../../common/taskItem';
 import DateComponent from '@app/components/common/date';
 import { AvatarStack } from '../avatarStack/avatarStack';
 import { twMerge } from 'tailwind-merge';
 import { useTask } from '@app/hooks/useTasks';
+import { useAppSelector } from '@app/hooks/redux';
+import { userSelector } from '@core/redux/reducers/userSlice/user.selector';
+import List from '@app/components/common/list';
+import ListItem from '@app/components/common/listItem';
 
 interface TaskCardProps {
-  data:ITask
+  data: ITask
 }
 function TaskCard({ data }: TaskCardProps) {
-  const { taskState, setCurrentTask }  = useTask();
+  const user = useAppSelector(userSelector);
+  const { taskState, setCurrentTask, changeStatus } = useTask();
+  const [showList, setShowList] = useState(false);
   const isSelected = taskState.currentTask === data.taskId;
-  const handleClick = (id: string) => { 
+  const isEditable = data.taskUsersId.includes(user.id);
+  const allStatus: statusType[] = ['done', 'stuck', 'inProgress'];
+
+  const handleClick = (id: string) => {
     setCurrentTask(id);
+  };
+
+  const handleShow = () => {
+    if (!isEditable) return;
+    setShowList(true);
+  };
+
+  const handleStatus = (status: statusType) => {
+    const task = data;
+    changeStatus(status, task);
+    setShowList(false);
   };
 
   return (
@@ -37,13 +57,31 @@ function TaskCard({ data }: TaskCardProps) {
         </>
       }
       footer={
-        <TaskStatus status={data.taskStatus} />
+        <>
+          <TaskStatus onClick={handleShow} edit={isEditable} status={data.taskStatus} />
+          {
+            showList &&
+            <List
+              className='
+                absolute
+                mb-[23vh]
+                bg-white 
+                text-black
+              '
+              data={allStatus}
+              renderedItem={(status) =>
+                <ListItem onClick={() => handleStatus(status)}>
+                  {status}
+                </ListItem>
+              } />
+          }
+        </>
       }
     >
-        <p className= 'mb-4 overflow-wrap break-word font-medium text-sm'>
-          {data.taskName}
-        </p>
-        <AvatarStack label={false} usersId={data.taskUsersId}  />
+      <p className='mb-4 overflow-wrap break-word font-medium text-sm'>
+        {data.taskName}
+      </p>
+      <AvatarStack label={false} usersId={data.taskUsersId} />
     </Card>
   );
 }

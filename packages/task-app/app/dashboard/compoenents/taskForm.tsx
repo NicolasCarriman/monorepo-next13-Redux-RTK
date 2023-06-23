@@ -163,7 +163,6 @@ function TaskForm({
     };
     const isNewCategory = formValues['category'] as string !== category.name;
 
-    console.log(isNewCategory);
     if (!isNewTeam && !isNewCategory) updateCategory(newTask);
     if (!isNewTeam && isNewCategory) addCategory(newTask.taskId, formValues['category'] as string);
     if (isNewTeam) addTeam(formValues['team'] as string, formValues['category'] as string);

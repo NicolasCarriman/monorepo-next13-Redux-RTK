@@ -11,7 +11,7 @@ import ProgressComponent from './progress';
 import RoundedBox from '@app/components/common/box';
 
 /**
- * todo: this function needs implement refactorization
+ * todo: this component needs implement refactorization
  */
 
 function GridComponent() {
@@ -83,11 +83,11 @@ function GridComponent() {
       </div>
       <div className='col-span-1 '>
         <div className='flex h-[100%] justify-center items-center min-h-[12vh] bg-white shadow-sm'>
-          <DateComponent date={today}></DateComponent>
+        <DateComponent variant='medium' date={today}></DateComponent>
         </div>
       </div>
       <div className='col-span-2'>
-        <RoundedBox>
+        <RoundedBox className='flex flex-row gap-2 items-center justify-between pl-12 pr-12'>
         {
           taskState.currentTask ?
           <ProgressComponent /> :
