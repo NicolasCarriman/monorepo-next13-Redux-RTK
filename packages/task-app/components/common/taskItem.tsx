@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from 'react';
+import { HiChevronUp } from 'react-icons/hi';
 import { twMerge } from 'tailwind-merge';
 
 interface TaskProps {
@@ -49,11 +50,12 @@ export const TaskPriority: React.FC<TaskPriorityProps> = ({ priority, ...rest })
   );
 };
 
-interface TaskStatusProps {
+interface TaskStatusProps extends HTMLAttributes<HTMLDivElement> {
   status: string;
+  edit?: boolean;
 }
 
-export const TaskStatus: React.FC<TaskStatusProps> = ({ status }) => {
+export const TaskStatus: React.FC<TaskStatusProps> = ({ edit=false, status, ...rest }) => {
   let statusColor: string;
   let fontColor: string;
   let title: string;
@@ -82,13 +84,15 @@ export const TaskStatus: React.FC<TaskStatusProps> = ({ status }) => {
   }
 
   const statusClass = 'flex items-center justify-center w-[12vw] font-medium ' +
-                      `h-12 ${fontColor} ${statusColor} rounded-lg`;
+                      `h-12 ${fontColor} ${statusColor} rounded-lg ${edit ? 'cursor-pointer' : 'cursor-default'}`;
 
   return (
     <div
       className={statusClass}
+      {...rest}
     >
       {title}
+      { edit && <HiChevronUp />}
     </div>
   );
 };
@@ -110,7 +114,8 @@ export const TaskTags: React.FC<TaskTagsProps> = ({ children, variant = 'medium'
       text-white 
       bg-blue-200 
       rounded-lg
-      gap-2
+      gap-2 
+      cursor-default
       `, variant === 'medium' ? 'max-w-min font-medium p-6 h-8' : 'whitespace-nowrap max-w-max font-light p-3 rounded-xl h-4'
       )}
     >

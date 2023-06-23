@@ -19,15 +19,28 @@ function ProgressComponent() {
 
   return (
     <>
-      {
-        progress ?
-          <p className='font-medium text-lg'>
-            COMPLETED {progress}%
-          </p> :
-          <p className='font-medium text-lg'>
-            COMPLETED 0%
-          </p>
-      }
+      <div className='flex flex-col gap-2 justify-center items-center'>
+        {
+          progress ?
+            <>
+              <p className='font-medium text-lg'>
+                COMPLETED
+              </p>
+              <p>
+                {progress}%
+              </p>
+            </>
+            :
+            <>
+              <p className='font-medium text-lg'>
+                COMPLETED
+              </p>
+              <p>
+                0%
+              </p>
+            </>
+        }
+      </div>
     </>
   );
 }

@@ -9,7 +9,7 @@ import {
   selectCurrentTask,
   updateTask
 } from '@core/redux/reducers/taskSlice/task.slice';
-import { ITask, subtask, subtaskItem } from '@core/models';
+import { ITask, statusType, subtask, subtaskItem } from '@core/models';
 import { useTeam } from './useTeam';
 import { store } from '@core/index';
 import { getRandomId } from '@app/utils/uid';
@@ -213,6 +213,21 @@ export const useTask = () => {
     dispatch(addTask(task));
   };
 
+  /**
+   * this function is called when the user try to change the task status
+   * @param status type of status to update
+   * @param task taskdata to update
+   */
+
+  const changeStatus = (status: statusType, task: ITask) => {
+    const updatedTask = {
+      ...task,
+      taskStatus: status
+    };
+
+    dispatch(updateTask(updatedTask));
+  };
+
   return {
     getCurrentCategory,
     getCurrentSubtaskId,
@@ -227,6 +242,7 @@ export const useTask = () => {
     getAllSubtasksItems,
     deleteCurrentTask,
     addNewTask,
+    changeStatus,
     taskState
   };
 };
