@@ -31,7 +31,7 @@ function TableFilter() {
           projectName && 
           <CurrentProject project={projectName} />
         }
-        <Suspense  fallback={<div>loadig</div>}>
+        <Suspense  fallback={<div>...loading</div>}>
           <FilterComponent
             data={tasks}
             setData={setFilteredTask}

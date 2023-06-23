@@ -12,7 +12,7 @@ const teamSlice = createSlice({
     selectCategory: (state, category) => {
       state.currentCategoryId = category.payload;
     },
-    setCategory: (state, category: PayloadAction<ITeamCategory>) => {
+    addCategory: (state, category: PayloadAction<ITeamCategory>) => {
       const newCategory = category.payload;
       const teamCategory = state.teamCategory;
 
@@ -37,5 +37,10 @@ const teamSlice = createSlice({
   },
 });
 
-export const { setTeam, selectCategory, setCategory, updateCategory } = teamSlice.actions;
+export const {
+  setTeam,
+  selectCategory,
+  addCategory,
+  updateCategory,
+} = teamSlice.actions;
 export default teamSlice.reducer;

@@ -47,11 +47,7 @@ function SubtaskManager() {
               ¡Oops! Parece que hay un pequeño problema 😅
             </h2>
             <p>
-              🚫⚙️ Tarea inexistente
-            </p>
-            <p>
-              📝 ¡Hola! notamos que no se ha seleccionado ninguna tarea o no se ha creado ninguna.
-              Esto podría deberse a un olvido o a un malentendido.
+              📝¡Hola! Todavía no se ha creado ninguna subtarea o no se ha seleccionado ninguna tarea.
             </p>
           </div>
         }

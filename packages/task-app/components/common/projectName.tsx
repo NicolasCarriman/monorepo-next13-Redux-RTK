@@ -13,10 +13,10 @@ export const CurrentProject: React.FC<CurrentProjectProps> = (
 ) => {
 
   return (
-    <button
+    <a
       className='font-bold cursor-pointer'
     >
       {project}
-    </button>
+    </a>
   );
 };

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from './redux';
 import { TaskState } from '@core/redux/reducers/taskSlice/task.state';
 import {
   addSubtask,
+  addTask,
   deleteTask,
   selectCurrentSubtask,
   selectCurrentTask,
@@ -80,6 +81,7 @@ export const useTask = () => {
 
     const subtasks = task.subtasks;
     if (!subtasks) return;
+    if(subtasks.length === 0) return;
 
     const currentSubtask = subtasks[0].id;
     return currentSubtask;
@@ -89,9 +91,8 @@ export const useTask = () => {
     const task = getCurrentTask(taskState.currentTask);
     if (!task) return;
     const subtasks = task.subtasks;
-    if (!subtasks) {
-      throw new Error('No subtask found');
-    } else {
+    if (!subtasks) return;
+    else {
       const currentSubtask = subtasks.find((subT) => (subT.id === subTaskId));
       return currentSubtask;
     }
@@ -208,6 +209,10 @@ export const useTask = () => {
     return items;
   };
 
+  const addNewTask = (task: ITask) => {
+    dispatch(addTask(task));
+  };
+
   return {
     getCurrentCategory,
     getCurrentSubtaskId,
@@ -221,6 +226,7 @@ export const useTask = () => {
     setSubtaskItem,
     getAllSubtasksItems,
     deleteCurrentTask,
+    addNewTask,
     taskState
   };
 };

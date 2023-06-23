@@ -2,7 +2,7 @@ import { ITask, ITeam, ITeamCategory, IUser, taskId } from '@core/models';
 import { useAppDispatch, useAppSelector } from './redux';
 import { teamSelector } from '@core/redux/reducers/teamSlice/team.selector';
 import { taskSelector } from '@core/redux/reducers/taskSlice/task.selector';
-import { selectCategory, setCategory, updateCategory } from '@core/redux/reducers/teamSlice/team.slice';
+import { addCategory, selectCategory, updateCategory } from '@core/redux/reducers/teamSlice/team.slice';
 import { getRandomId } from '@app/utils';
 import { userSelector } from '@core/redux/reducers/userSlice/user.selector';
 
@@ -19,6 +19,10 @@ interface useTeamsHook {
   addCategoryByName: (name: string) => void
   //eslint-disable-next-line
   addGoal: (goal: string) => void
+  //eslint-disable-next-line
+  updateTeamCategory: (category: ITeamCategory) => void
+  //eslint-disable-next-line
+  addNewCategory: (category: Partial<ITeamCategory>) => void
   team: ITeam;
 };
 
@@ -47,6 +51,23 @@ export const useTeam = (): useTeamsHook => {
     dispatch(selectCategory(categoryId));
   };
 
+  const addNewCategory = (category: Partial<ITeamCategory>) => {
+    if (!category.name) return;
+    if(!category.tasks) return;
+    if(!category.usersId) return;
+    if(!category.categoryid) return;
+
+    const newCategory: ITeamCategory = {
+      name: category.name,
+      tasks: category.tasks,
+      usersId: category.usersId,
+      categoryid: category.categoryid,
+      goals: []
+    };
+
+    dispatch(addCategory(newCategory));
+  };
+
   const addCategoryByName = (name: string) => {
     const userId = user.id;
 
@@ -59,7 +80,7 @@ export const useTeam = (): useTeamsHook => {
       goals: []
     };
 
-    dispatch(setCategory(newCategory));
+    dispatch(addCategory(newCategory));
   };
 
   const addGoal = (goal: string) => {
@@ -78,6 +99,10 @@ export const useTeam = (): useTeamsHook => {
     dispatch(updateCategory(updatedCategory));
   };
 
+  const updateTeamCategory = (category: ITeamCategory): void => {
+    dispatch(updateCategory(category));
+  };
+
   return {
     getCurrentCategory,
     getCurrentTeamTasks,
@@ -85,6 +110,8 @@ export const useTeam = (): useTeamsHook => {
     setCurrenCategory,
     addCategoryByName,
     addGoal,
+    addNewCategory,
+    updateTeamCategory,
     team
   };
 };
