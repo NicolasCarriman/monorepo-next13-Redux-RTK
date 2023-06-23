@@ -10,7 +10,7 @@ import { getTeam } from '@core/services/getTeam';
 
 async function Dashboard() {
 
-  const req = await fetch('http://localhost:3000/api/tasks');
+  const req = await fetch('http://localhost:3000/api/tasks', { cache: 'no-store' });
   const taskData = await req.json();
   const project = await getProject();
   const user = await getUser();
