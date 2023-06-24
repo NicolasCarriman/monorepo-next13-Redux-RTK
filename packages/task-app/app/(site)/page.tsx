@@ -7,8 +7,6 @@ import SideBarLink from '@app/components/common/link';
 import Button from '@app/components/common/button';
 
 async function Home() {
-  const test = await fetch('http://localhost:3000/api/test', { cache: 'no-store' });
-  const data = test.json();
 
   return (
     <main className='w-full h-full flex flex-col gap-3'>
@@ -36,7 +34,6 @@ async function Home() {
               </p>
             </Button>
           </SideBarLink>
-          <div>{data}</div>
         </div>
         <div className='flex justify-center items-cente shadow-2xl rounded-lg p-4 z-50'>
           <Image src={dino} alt={'dinosaur'} height='200' width='400' />

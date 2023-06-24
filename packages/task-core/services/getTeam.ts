@@ -1,9 +1,10 @@
-
-/**
- * todo: should implement get team id query
- */
+import data from '../data/fakedata.project.json';
 
 export const getTeam = async () => {
-  const team = await fetch('http://localhost:3000/api/team', { cache: 'no-store' });
-  return team.json(); 
+  const firstTeam = data.teams[0];
+  const teamData = {
+    ...firstTeam,
+    currentCategoryId: 'marketing-estrategico'
+  };
+  return teamData;
 };
