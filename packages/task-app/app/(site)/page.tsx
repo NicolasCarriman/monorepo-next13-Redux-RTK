@@ -5,10 +5,11 @@ import Image from 'next/image';
 import dino from '../../public/dino2.jpg';
 import SideBarLink from '@app/components/common/link';
 import Button from '@app/components/common/button';
-import { getProject } from '@core/services/getProject';
 
 async function Home() {
-  const data = await getProject();
+  const test = await fetch('http://localhost:3000/api/test', { cache: 'no-store' });
+  const data = test.json();
+
   return (
     <main className='w-full h-full flex flex-col gap-3'>
       <div className={twMerge('flex w-100% justify-center items-center mt-10', style.slideAppearAnimation)}>
