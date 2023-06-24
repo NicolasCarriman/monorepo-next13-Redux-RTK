@@ -14,15 +14,23 @@ const FilterComponent = lazy(() => import('../../../components/ui/filter/filter'
 function TableFilter() {
   const [ filteredTask, setFilteredTask ] = useState<ITask[]>([]);
   const taskState = useAppSelector((state) => state.tasks);
-  const projectName = useAppSelector((state) => state.project.name);
+  const project = useAppSelector((state) => state.project);
+  const user = useAppSelector((state) => state.user);
+  const projectName = project.name;
   // eslint-disable-next-line no-unused-vars 
   const [ value, setValue ] = useLocalStorage('tasks', taskState);
+  // eslint-disable-next-line no-unused-vars 
+  const [ uValue, setUvalue ] = useLocalStorage('user', {});
+  // eslint-disable-next-line no-unused-vars 
+  const [ pValue, setPvalue ] = useLocalStorage('project', {});
   const tasks = taskState.tasks;
 
   useEffect(() => {
     setValue(taskState);
+    setPvalue(project);
+    setUvalue(user);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskState]);
+  }, [taskState, project, user]);
 
   return (
     <>
