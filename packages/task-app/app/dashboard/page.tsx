@@ -7,11 +7,10 @@ import TableFilter from './compoenents/tableFilter';
 import { getProject } from '@core/services/getProject';
 import { getUser } from '@core/services/getUser';
 import { getTeam } from '@core/services/getTeam';
+import { getTasks } from '@core/services/getTasks';
 
 async function Dashboard() {
-
-  const req = await fetch('http://localhost:3000/api/tasks', { cache: 'no-store' });
-  const taskData = await req.json();
+  const taskData = await getTasks();
   const project = await getProject();
   const user = await getUser();
   const team = await getTeam();

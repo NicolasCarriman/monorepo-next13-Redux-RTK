@@ -1,6 +1,5 @@
 import HeaderNav from './components/nav';
 
-
 export default function RootLayout({
   children,
 }: {
@@ -8,7 +7,6 @@ export default function RootLayout({
 }) {
   return (
     <>
-     <link rel='icon' href='/favicon.ico'/>
     <HeaderNav />
     {
       children

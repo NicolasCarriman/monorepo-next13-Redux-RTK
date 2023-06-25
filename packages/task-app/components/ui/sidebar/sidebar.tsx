@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { SideBarContainer, SidebarComponent, SidebarFooter, SidebarHead, SidebarMainContainer } from './sidebar.styled';
-import { CurrentProject } from '../../common/projectName';
 import ButtonIcon from '../button-icon/buttonIcon';
 import AvatarComponent from '../../common/avatar';
 import SideBarLink from '@app/components/common/link';

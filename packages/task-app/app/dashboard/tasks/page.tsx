@@ -20,10 +20,10 @@ function Tasks() {
   const user = useAppSelector(userSelector);
   const tasks = useAppSelector(taskSelector);
   const dispatch = useDispatch();
-  const [ userStored ] = useLocalStorage('user', {});
-  const [ projectStored ] = useLocalStorage('project', {});
-  const [ teamStored, setTeamStored ] = useLocalStorage('team', {});
-  const [ taskStored, setTaskStored ] = useLocalStorage('tasks', {});
+  const [userStored] = useLocalStorage('user', {});
+  const [projectStored] = useLocalStorage('project', {});
+  const [teamStored, setTeamStored] = useLocalStorage('team', {});
+  const [taskStored, setTaskStored] = useLocalStorage('tasks', {});
 
   useEffect(() => {
     userStored && dispatch(setUser(userStored));
@@ -31,7 +31,7 @@ function Tasks() {
     teamStored && dispatch(setTeam(teamStored));
     taskStored && dispatch(setTaskState(taskStored));
     loaded.current = true;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -41,15 +41,15 @@ function Tasks() {
     if (tasks.tasks.length) {
       setTaskStored(tasks);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [team, project, user, tasks]);
 
   return (
     <>
       {
         loaded.current &&
-                <GridComponent
-                />
+        <GridComponent
+        />
       }
     </>
   );
