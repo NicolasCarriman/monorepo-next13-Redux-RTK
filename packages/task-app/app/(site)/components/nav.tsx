@@ -2,9 +2,20 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import trex from '../../../public/dino1.png';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const links = [
+  { href: '/', label: 'Inicio' },
+  { href: '/product', label: 'Producto' },
+  { href: '/about', label: 'Acerca de' },
+  { href: '/contact', label: 'Contacto' },
+];
 
 const HeaderNav: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const path = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -24,16 +35,31 @@ const HeaderNav: React.FC = () => {
               />
             </div>
             <div className="hidden sm:flex flex-row gap-6">
-              <a href="#" className="font-medium ml-4 border border-white hover:border-b-1 hover:border-b-black transition-all-ease duration-75">Inicio</a>
-              <a href="#" className="font-medium ml-4 border border-white hover:border-b-1 hover:border-b-black transition-all-ease duration-75">Producto</a>
-              <a href="#" className="font-medium border border-white hover:border-b-1 hover:border-b-black transition-all-ease duration-75">Acerca de</a>
-              <a href="#" className="font-medium border border-white hover:border-b-1 hover:border-b-black transition-all-ease duration-75">Contacto</a>
+              {
+                links.map((link) => (
+                  <div key={link.href}>
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="relative text-gray-600 hover:text-gray-900"
+                    >
+                      {link.href === path && (
+                        <motion.span
+                          layoutId="underline"
+                          className="absolute left-0 top-full block h-[1px] w-full bg-black"
+                        />
+                      )}
+                      {link.label}
+                    </Link>
+                  </div>
+                ))
+              }
             </div>
           </div>
           <div className="sm:hidden">
             <button
               type="button"
-              className="text-gray-500 hover:text-white focus:outline-none focus:text-white"
+              className="text-black hover:text-blue-200 focus:outline-none focus:text-black"
               onClick={toggleMenu}
             >
               <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
@@ -56,14 +82,23 @@ const HeaderNav: React.FC = () => {
         </div>
         {isOpen && (
           <div className="sm:hidden mt-4">
-            <a href="#" className="block text-gray-300 hover:text-white py-2">Inicio</a>
-            <a href="#" className="block text-gray-300 hover:text-white py-2">Servicios</a>
-            <a href="#" className="block text-gray-300 hover:text-white py-2">Acerca de</a>
-            <a href="#" className="block text-gray-300 hover:text-white py-2">Contacto</a>
+            {
+              links.map((link) => (
+                <div key={link.href}>
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="relative text-gray-600 hover:text-gray-900"
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              ))
+            }
           </div>
         )}
       </nav>
-    </header>
+    </header >
   );
 };
 

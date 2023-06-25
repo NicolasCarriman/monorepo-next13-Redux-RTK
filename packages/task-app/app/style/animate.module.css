@@ -13,6 +13,18 @@
   }
 }
 
+@keyframes fontSlideY {
+  0% {
+    transform: translateY(100%);
+  }
+  70% {
+    transform: translateY(-2%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideOut {
   from {
     transform: translateX(0);
@@ -97,4 +109,10 @@
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
+}
+
+.fontSlide {
+  animation-name: fontSlideY;
+  animation-duration: 1.75s;
+  animation-timing-function: ease-in-out;
 }
