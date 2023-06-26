@@ -1,4 +1,4 @@
-import React, {  MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'small' | 'medium' | 'large';
@@ -6,7 +6,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   rightIcon?: React.ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  variant?: 'default' | 'filter' | 'iconButton' | 'animated';
+  variant?: 'default' | 'hover' | 'filter' | 'iconButton' | 'animated';
   disabled?: boolean;
 }
 
@@ -40,6 +40,8 @@ function ButtonComponent({
   const variantStyle = {
     default: `task-button bg-transparent ${width} rounded-lg text-gray-700 ` +
       'font-light flex flex-row justify-center items-center hover:text-white hover:bg-blue-200',
+    hover: `task-button bg-[#dfdfff] shadow-out ${width} rounded-lg text-blue-200 font-light flex flex-row ` +
+      'justify-center items-center transition-all ease-out duration-200 hover:text-white hover:font-medium hover:shadow-hover',
     filter: `task-button text-gray-500 bg-transparent ${width} rounded-lg ` +
       'font-medium hover:text-blue-100 flex flex-row justify-center items-center shadow-sm shadow-gray-500/40',
     iconButton: 'flex justify-left w-[100%] m-w-max items-center h-[4vh] p-4 rounded-lg text-blue-200 font-light hover:text-white hover:bg-blue-200 disabled:bg-transparent disabled:text-gray-500',

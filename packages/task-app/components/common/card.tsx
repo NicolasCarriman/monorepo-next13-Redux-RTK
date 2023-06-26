@@ -42,7 +42,7 @@ function Card({
       <div className='flex flex-row justify-between items-center '>
         {header}
       </div>
-      <div className='flex flex-col justify-end w-full h-full'>
+      <div className='flex flex-col justify-center w-full h-full xl:text-lg'>
         {children}
       </div>
       {

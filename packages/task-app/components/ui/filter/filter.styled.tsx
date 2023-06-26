@@ -17,7 +17,7 @@ interface ContainerProps {
 
 export const FilterContainer: React.FC<ContainerProps> = ({ children }) => {
   return (
-    <div className='flex flex-column w-auto gap-4'>
+    <div className='hidden sm:flex flex-column w-auto gap-4'>
       { children }
     </div>  
   );

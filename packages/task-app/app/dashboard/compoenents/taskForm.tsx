@@ -175,7 +175,7 @@ function TaskForm({
       onSubmit={handleSubmit}
     >
       <div
-        className='flex flex-row-reverse w-[100vh] justify-center items-end'
+        className='flex flex-col w-auto justify-center items-center gap-6 sm:flex-row-reverse sm:items-end '
       >
         <div className='flex flex-col gap-3 max-w-[45vh]' >
           <div>
@@ -276,6 +276,7 @@ function TaskForm({
       <div className='flex justify-center items-center min-t-[6vh] mt-4'>
         <Button
           size={'medium'}
+          variant='hover'
           type='submit'
         >
           <p className='font-medium h-[6vh] justify-center items-center flex'>

@@ -25,7 +25,7 @@ async function Home() {
         </p>
       </div>
       <SideBarLink href='./dashboard'>
-        <Button size={'small'}>
+        <Button variant='hover' size={'small'}>
           <p className='p-2 whitespace-nowrap'>
             Prueba Ahora!
           </p>
