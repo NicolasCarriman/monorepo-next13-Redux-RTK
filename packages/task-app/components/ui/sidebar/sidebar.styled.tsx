@@ -11,7 +11,7 @@ interface SidebarContainer {
 export const SideBarContainer: React.FC<SidebarContainer> = ({ children }) => {
   return (
     <aside
-      className='w-auto relative ml-4 h-[calc(100vh)]'
+      className='w-auto sticky ml-0 h-[16vh] sm:relative sm:h-[calc(100vh)] sm:ml-4'
     >
       {children}
     </aside>
@@ -25,11 +25,31 @@ interface sidebarComponentProps extends SidebarProps {
 
 export const SidebarComponent: React.FC<sidebarComponentProps> = (props) => {
   const { children, onHover, onLeave } = props;
-  const sidebarClass = 'bg-white h-full items-center flex flex-col justify-start rounded-xl transition-all ease-out duration-200 gap-8 min-h-[94vh] w-[6vw] hover:w-[14vw] hover:h-full shadow-custom';
 
   return (
       <div
-        className={sidebarClass}
+        className='
+          bg-white 
+          h-full 
+          items-center 
+          flex 
+          flex-row 
+          justify-between 
+          rounded-xl 
+          transition-all 
+          ease-out 
+          duration-600 
+          p-4
+          gap-8
+          w-full
+          min-h-[10vh] 
+          sm:min-h-[94vh] 
+          sm:w-[6vw] 
+          sm:flex-col
+          sm:justify-between 
+          hover:w-auto
+          hover:h-full 
+          shadow-custom'
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
       >
@@ -53,7 +73,7 @@ export const SidebarHead: React.FC<SidebarHead> = ({ children }) => {
 export const SidebarMainContainer: React.FC<SidebarProps> = ({ children }) => {
   return (
     <div
-      className='flex flex-col gap-[12px] justify-center items-start relative max-w-min'
+      className='hidden sm:flex flex-col gap-[12px] justify-center items-start relative max-w-min'
     >
       {children}
     </div>
@@ -68,10 +88,10 @@ interface SidebarFooterProps {
 export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, spanLabel }) => {
   return (
     <div
-      className='flex flex-col justify-center mt-[30px] items-center gap-4 font-bold1'
+      className='flex flex-col justify-center items-center gap-4 font-bold1'
     >
       {children}
-      <span className='flex justify-center font-medium items-center w-min'>
+      <span className='hidden sm:flex justify-center font-medium items-center w-min'>
         {spanLabel}
       </span>
     </div>

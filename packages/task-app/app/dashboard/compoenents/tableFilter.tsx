@@ -37,7 +37,9 @@ function TableFilter() {
       <DashboardHeader>
         {
           projectName && 
-          <CurrentProject project={projectName} />
+          <div className='hidden sm:flex'>
+            <CurrentProject project={projectName} />
+          </div>
         }
         <Suspense  fallback={<div>...loading</div>}>
           <FilterComponent

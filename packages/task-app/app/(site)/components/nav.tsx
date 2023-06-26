@@ -5,6 +5,7 @@ import trex from '../../../public/dino1.png';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Burger from '@app/components/common/burger';
 
 const links = [
   { href: '/', label: 'Inicio' },
@@ -56,29 +57,7 @@ const HeaderNav: React.FC = () => {
               }
             </div>
           </div>
-          <div className="sm:hidden">
-            <button
-              type="button"
-              className="text-black hover:text-blue-200 focus:outline-none focus:text-black"
-              onClick={toggleMenu}
-            >
-              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                {isOpen ? (
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M4 6H20V8H4V6ZM4 11H20V13H4V11ZM4 16H20V18H4V16Z"
-                  />
-                ) : (
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M4 6H20V8H4V6ZM4 11H20V13H4V11ZM4 16H20V18H4V16ZM4 11H20V13H4V11Z"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
+            <Burger onClick={toggleMenu} isOpen={isOpen}/>
         </div>
         {isOpen && (
           <div className="sm:hidden mt-4">

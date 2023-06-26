@@ -3,7 +3,7 @@ import { Providers } from './providers';
 import { Montserrat } from 'next/font/google';
  
 const font = Montserrat({
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',

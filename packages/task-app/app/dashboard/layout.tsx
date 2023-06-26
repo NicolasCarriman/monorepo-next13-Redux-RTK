@@ -17,7 +17,7 @@ export default function RootLayout({
             }
         `}
         </style>
-        <div className='flex flec-row justify-start gap-4'>
+        <div className='flex flex-col gap-0 sm:gap-4 sm:flex-row justify-start '>
           <Sidebar/>
           <DashboardComponent>
             {children}

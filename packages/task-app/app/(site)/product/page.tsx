@@ -15,7 +15,7 @@ function Product() {
           nuestro producto se adapta a tus necesidades, ofreciendo una experiencia fluida y adaptativa.
         </p>
         <SideBarLink href='./dashboard'>
-          <Button size={'small'}>
+          <Button variant='hover' size={'small'}>
             <p className='p-2 whitespace-nowrap'>
               Prueba Ahora!
             </p>

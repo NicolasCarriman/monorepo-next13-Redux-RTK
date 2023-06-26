@@ -39,7 +39,7 @@ export default function RootLayout({
               children
             }
           </div>
-          <div className='flex justify-center items-cente shadow-2xl rounded-lg p-4 z-50 min-h-[69vh]'>
+          <div className='flex justify-center items-cente shadow-2xl rounded-lg p-4 z-50 min-h-[69vh] min-w-[30%]'>
             <Image src={dino} alt={'dinosaur'} height='200' width='400' />
           </div>
         </section>
