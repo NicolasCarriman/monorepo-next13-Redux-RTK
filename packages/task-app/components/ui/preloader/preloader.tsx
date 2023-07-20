@@ -23,23 +23,20 @@ function Preloader({
   team
 }: IPreloader) {
   const loaded = useRef(false);
-  const [ taskValue ] = useLocalStorage('tasks', tasks);
-  const [ userValue ] = useLocalStorage('user', user);
-  const [ teamValue ] = useLocalStorage('team', team);
+  // eslint-disable-next-line no-unused-vars
+  const [ taskValue, _task, isTaskValue ] = useLocalStorage('tasks', tasks);
+  // eslint-disable-next-line no-unused-vars
+  const [ userValue, _user,  isUserValue ] = useLocalStorage('user', user);
+  // eslint-disable-next-line no-unused-vars
+  const [ teamValue, _team, isTeamValue ] = useLocalStorage('team', team);
 
   if (!loaded.current) {
-    if(taskValue) {
-      //check if the task is in the local storage
-      store.dispatch(setTaskState(taskValue));
-    } else tasks && store.dispatch(setTaskState(tasks));
 
-    if(userValue) {
-      store.dispatch(setUser(userValue));
-    } else user && store.dispatch(setUser(user));
+    isTaskValue ? store.dispatch(setTaskState(taskValue)) : tasks && store.dispatch(setTaskState(tasks)); 
 
-    if (!teamValue) {
-      team && store.dispatch(setTeam(team));
-    } 
+    isUserValue ? store.dispatch(setUser(userValue)) : user && store.dispatch(setUser(user));
+
+    isTeamValue ? store.dispatch(setTeam(teamValue)) : team && store.dispatch(setTeam(team));
 
     project && store.dispatch(setProject(project));
     loaded.current = true;

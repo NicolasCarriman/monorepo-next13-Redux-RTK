@@ -23,7 +23,13 @@ const useLocalStorage = (key: string, initialValue: unknown) => {
     }
   };
 
-  return [ storedValue, setValue ];
+  function validateKey(key: string) {
+    const item = window.localStorage.getItem(key);
+    if (item) return true;
+    else return false;
+  }
+
+  return [ storedValue, setValue, validateKey];
 };
 
 export default useLocalStorage;
