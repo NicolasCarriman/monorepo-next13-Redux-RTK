@@ -25,6 +25,7 @@ function Preloader({
   const loaded = useRef(false);
   const [ taskValue ] = useLocalStorage('tasks', tasks);
   const [ userValue ] = useLocalStorage('user', user);
+  const [ teamValue ] = useLocalStorage('team', team);
 
   if (!loaded.current) {
     if(taskValue) {
@@ -36,8 +37,11 @@ function Preloader({
       store.dispatch(setUser(userValue));
     } else user && store.dispatch(setUser(user));
 
+    if (!teamValue) {
+      team && store.dispatch(setTeam(team));
+    } 
+
     project && store.dispatch(setProject(project));
-    team && store.dispatch(setTeam(team));
     loaded.current = true;
   }
 
