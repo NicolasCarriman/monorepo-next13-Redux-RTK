@@ -19,7 +19,7 @@ function SubtaskManager() {
     getCurrentTask,
     taskState,
     addNewSubtask,
-    setSubtaskItem,
+    setSubtaskItemCheck,
   } = useTask();
 
   const taskId = taskState.currentTask;
@@ -29,9 +29,9 @@ function SubtaskManager() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const subtask = getCurrentSubtask(subtaskId);
 
-  const handleChange = (checked: boolean, id: string, item: string) => {
+  const handleChange = (checked: boolean, id: string) => {
     // this function is responsible for update the checkbox
-    setSubtaskItem(checked, id, item);
+    setSubtaskItemCheck(checked, id);
   };
 
   return (
