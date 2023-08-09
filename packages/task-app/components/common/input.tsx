@@ -16,12 +16,14 @@ function Input(props: InputHTMLAttributes<HTMLInputElement>) {
       border 
       rounded 
       p-2 
-      `, props.disabled && 'bg-gray-200')}
-    >
-      <input
-        autoFocus
-        className='ml-2 outline-none w-full font-medium text-blue-200'
-        {...props}
+      shadow-sm
+      hover:shadow-md
+      transition-shadow duration-200
+      `, props.disabled && 'bg-gray-200')}>
+        <input
+            autoFocus
+            className='ml-9 outline-none w-full font-medium text-blue-200 bg-transparent placeholder-blue-300'
+            {...props}
       />
     </div>
   );
