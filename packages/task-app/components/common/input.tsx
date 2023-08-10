@@ -1,9 +1,16 @@
 'use client';
-
-import React, { InputHTMLAttributes } from 'react';
+import {  useState } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
-
-function Input(props: InputHTMLAttributes<HTMLInputElement>) {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
+}
+function Input({ setValue, ...props }: InputProps) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (setValue) {
+      setValue(e.target.value);
+    }
+  };
 
   return (
     <div
@@ -23,10 +30,10 @@ function Input(props: InputHTMLAttributes<HTMLInputElement>) {
         <input
             autoFocus
             className='ml-9 outline-none w-full font-medium text-blue-200 bg-transparent placeholder-blue-300'
+            onChange={handleInputChange}
             {...props}
-      />
+        />
     </div>
   );
-};
-
+}
 export default Input;

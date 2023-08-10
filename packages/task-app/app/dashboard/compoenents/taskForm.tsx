@@ -19,12 +19,15 @@ import React, { useState } from 'react';
 
 
 
+
 interface TaskFormModal {
   closeModal: () => void;
+  setTaskName: React.Dispatch<React.SetStateAction<string>>;
+  setTaskDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function TaskForm({
-  closeModal
+  closeModal, setTaskName, setTaskDescription
 }: TaskFormModal) {
   const [error, setError] = useState<undefined | string>(undefined);
   const [members, setMembers] = useState<{ name: string, id: string }[]>([]);
@@ -174,121 +177,83 @@ function TaskForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
-      <div
-        className='flex flex-col w-auto justify-center items-center gap-6 sm:flex-row-reverse sm:items-end '
-      >
-        <div className='flex flex-col gap-3 max-w-[45vh]' >
-          <div>
-            <p>members:</p>
-            <List
-              className='flex flex-wrap border-none gap-1'
-              data={members}
-              renderedItem={
-                (item) => (
-                  <TaskTags variant='small'>
-                    {item.name}
-                    <span
-                      onClick={() => deleteMembers(item.id)}
-                      className='font-medium cursor-pointer'
-                    >X
-                    </span>
-                  </TaskTags>
-                )
-              }
-            />
-          </div>
-          <InputSearch
-            placeHolder='users'
-            data={users}
-            render={
-              (user, fn) => (
-                <ListItem
-                  onClick={() => handleUsers(user.name, user.id, fn)}
-                >
-                  <AvatarComponent variant='small' label={user.name} />
-                  <p className='font-medium'>{user.name}</p>
-                  <p className='font-light'>{user.departament}</p>
-                </ListItem>
-              )} />
-          <InputSearch
-            name='team'
-            placeHolder='team'
-            data={teams}
-            render={
-              (team: ITeam, fn) => (
-                <ListItem
-                  onClick={
-                    () => handleTeam(team.departament, team.id, fn)
-                  }
-                >
-                  <p>
-                    {team.departament}
-                  </p>
-                </ListItem>
-              )} />
-          {
-            !isNewTeam ?
-              <InputSearch
-                name='category'
-                placeHolder='category'
-                data={categories ? categories : []}
-                render={
-                  (category: category, fn) => (
-                    <ListItem
-                      onClick={
-                        () => handleCategory(category.name, category.id, fn)
-                      }
-                    >
-                      <p>
-                        {category.name}
-                      </p>
-                    </ListItem>
-                  )} />
-              : <Input name='category' placeholder='category' required />
-          }
-        </div>
-        <div className='flex flex-col gap-3'>
-          <Input name='taskName' required placeholder='task name' />
-          <Input name='taskDescription' required placeholder='task description' />
-          <InputSearch
-            placeHolder='priotiy'
-            data={priorities}
-            render={
-              (priority, fn) => (
-                <ListItem
-                  onClick={
-                    () => handlePriority(priority.name, priority.id, fn)
-                  }
-                >
-                  <TaskPriority priority={priority.name} />
-                </ListItem>
-              )
-            }
-          />
-        </div>
-      </div>
-      {
-        error &&
-        <div className='text-red-500 text-center '>
-          {error}
-        </div>
-      }
-      <div className='flex justify-center  min-t-[6vh] mt-4 ' >
-      <div className='flex justify-center min-t-[6vh] mt-4'>
-  <ButtonComponent 
-    
-    size='large'
-    variant='hover'
-    type='submit'
-    label="Create Task"
-  />
-</div>
-      </div>
+    <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>.
     </form>
-  );
+        <div className='flex flex-col w-auto justify-center items-center gap-6 sm:flex-row-reverse sm:items-end'>
+            <div className='flex flex-col gap-3 max-w-[45vh]'>
+                <div>
+                    <p>members:</p>
+                    <List
+                        className='flex flex-wrap border-none gap-1'
+                        data={members}
+                        renderedItem={(item) => (
+                            <TaskTags variant='small'>
+                                {item.name}
+                                <span onClick={() => deleteMembers(item.id)} className='font-medium cursor-pointer'>
+                                    X
+                                </span>
+                            </TaskTags>
+                        )}
+                    />
+                </div>
+                <InputSearch
+                    placeHolder='users'
+                    data={users}
+                    render={(user, fn) => (
+                        <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
+                            <AvatarComponent variant='small' label={user.name} />
+                            <p className='font-medium'>{user.name}</p>
+                            <p className='font-light'>{user.departament}</p>
+                        </ListItem>
+                    )}
+                />
+                <InputSearch
+                    name='team'
+                    placeHolder='team'
+                    data={teams}
+                    render={(team, fn) => (
+                        <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
+                            <p>{team.departament}</p>
+                        </ListItem>
+                    )}
+                />
+                {!isNewTeam ? (
+                    <InputSearch
+                        name='category'
+                        placeHolder='category'
+                        data={categories ? categories : []}
+                        render={(category, fn) => (
+                            <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
+                                <p>{category.name}</p>
+                            </ListItem>
+                        )}
+                    />
+                ) : (
+                    <Input name='category' placeholder='category' required />
+                )}
+            </div>
+            <div className='flex flex-col gap-3'>
+            <Input name='taskName' required placeholder='task name' setValue={setTaskName} />
+<Input name='taskDescription' required placeholder='task description' setValue={setTaskDescription} />
+
+                <InputSearch
+                    placeHolder='priority'
+                    data={priorities}
+                    render={(priority, fn) => (
+                        <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
+                            <TaskPriority priority={priority.name} />
+                        </ListItem>
+                    )}
+                />
+            </div>
+        </div>
+        {error && <div className='text-red-500 text-center'>{error}</div>}
+        <div className='flex justify-center min-t-[6vh] mt-4'>
+            <ButtonComponent size='large' variant='hover' type='submit' label="Create Task" />
+        </div>
+    </form>
+);
 }
 
 export default TaskForm;

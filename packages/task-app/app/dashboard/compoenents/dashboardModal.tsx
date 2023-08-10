@@ -10,6 +10,8 @@ import useLocalStorage from '@app/hooks/useLocalStorage';
 
 function DashboardModal() {
   const { isOpen, onOpen, onClose } = useModal();
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
   const { team } = useTeam();
   // eslint-disable-next-line
   const [value, setValue] = useLocalStorage('team', {});
@@ -31,8 +33,10 @@ useEffect(() => {
   return (
     <>
       <ButtonAdd onClick={onOpen}/>
-      <ModalComponent isOpen={isOpen} onClose={onClose} title={'Create Task'}>
-        <TaskForm closeModal={onClose} />
+      <ModalComponent isOpen={isOpen} onClose={onClose} taskName={taskName}
+          taskDescription={taskDescription} title={'Create Task'}>
+        <TaskForm closeModal={onClose} setTaskName={setTaskName}  
+            setTaskDescription={setTaskDescription} />
       </ModalComponent>
     </>
   );
