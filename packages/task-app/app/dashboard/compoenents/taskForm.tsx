@@ -1,6 +1,7 @@
 'use client';
 import { TaskPriority, TaskTags } from '@app/components/common';
 import AvatarComponent from '@app/components/common/avatar';
+import ButtonComponent from '@app/components/common/button';
 import Button from '@app/components/common/button';
 import Input from '@app/components/common/input';
 import List from '@app/components/common/list';
@@ -15,6 +16,8 @@ import { taskPriorities } from '@app/utils/priority';
 import { ITask, ITeam, ITeamCategory, ProjectTeam, category, priorityType, IUser } from '@core/models';
 import { projectSelector } from '@core/redux/reducers/projectSlice/project.selector';
 import React, { useState } from 'react';
+
+
 
 interface TaskFormModal {
   closeModal: () => void;
@@ -86,7 +89,7 @@ function TaskForm({
     };
 
     addNewTeam(newTeam);
-
+      
   };
 
   const handleUsers = (name: string, id: string, fn: onClickCallBack) => {
@@ -269,20 +272,20 @@ function TaskForm({
       </div>
       {
         error &&
-        <div className='text-red-500 text-center'>
+        <div className='text-red-500 text-center '>
           {error}
         </div>
       }
-      <div className='flex justify-center items-center min-t-[6vh] mt-4'>
-        <Button
-          size={'medium'}
-          variant='hover'
-          type='submit'
-        >
-          <p className='font-medium h-[6vh] justify-center items-center flex'>
-            Create Task
-          </p>
-        </Button>
+      <div className='flex justify-center  min-t-[6vh] mt-4 ' >
+      <div className='flex justify-center min-t-[6vh] mt-4'>
+  <ButtonComponent 
+    
+    size='large'
+    variant='hover'
+    type='submit'
+    label="Create Task"
+  />
+</div>
       </div>
     </form>
   );
