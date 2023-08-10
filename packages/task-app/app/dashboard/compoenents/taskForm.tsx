@@ -16,7 +16,7 @@ import { taskPriorities } from '@app/utils/priority';
 import { ITask, ITeam, ITeamCategory, ProjectTeam, category, priorityType, IUser } from '@core/models';
 import { projectSelector } from '@core/redux/reducers/projectSlice/project.selector';
 import React, { useState } from 'react';
-
+import StyledWrapper from "./styleWrapper"
 
 
 
@@ -175,70 +175,98 @@ function TaskForm({
     addNewTask(newTask);
     closeModal();
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
-          <form onSubmit={handleSubmit}>.
-    </form>
-        <div className='flex flex-col w-auto justify-center items-center gap-6 sm:flex-row-reverse sm:items-end'>
-            <div className='flex flex-col gap-3 max-w-[45vh]'>
-                <div>
-                    <p>members:</p>
-                    <List
-                        className='flex flex-wrap border-none gap-1'
-                        data={members}
-                        renderedItem={(item) => (
-                            <TaskTags variant='small'>
-                                {item.name}
-                                <span onClick={() => deleteMembers(item.id)} className='font-medium cursor-pointer'>
-                                    X
-                                </span>
-                            </TaskTags>
-                        )}
-                    />
-                </div>
-                <InputSearch
-                    placeHolder='users'
-                    data={users}
-                    render={(user, fn) => (
-                        <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
-                            <AvatarComponent variant='small' label={user.name} />
-                            <p className='font-medium'>{user.name}</p>
-                            <p className='font-light'>{user.departament}</p>
-                        </ListItem>
-                    )}
-                />
-                <InputSearch
-                    name='team'
-                    placeHolder='team'
-                    data={teams}
-                    render={(team, fn) => (
-                        <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
-                            <p>{team.departament}</p>
-                        </ListItem>
-                    )}
-                />
-                {!isNewTeam ? (
+        <div className='gap-6 sm:flex-row-reverse bg-white p-6 shadow-lg'>
+            <div className='flex-col gap-3 max-w-[45vh]'>
+
+               
+                    <div className="mb-4">
+                        <p className="font-semibold text-lg mb-2">Members:</p>
+                        <List
+                            className='flex flex-wrap border-none gap-1'
+                            data={members}
+                            renderedItem={(item) => (
+                                <TaskTags variant='small'>
+                                    {item.name}
+                                    <span onClick={() => deleteMembers(item.id)} className='ml-2 font-medium cursor-pointer'>
+                                        X
+                                    </span>
+                                </TaskTags>
+                            )}
+                        />
+                    </div>
+                
+
+                <StyledWrapper>
                     <InputSearch
-                        name='category'
-                        placeHolder='category'
-                        data={categories ? categories : []}
-                        render={(category, fn) => (
-                            <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
-                                <p>{category.name}</p>
+                        placeHolder='Users'
+                        data={users}
+                        render={(user, fn) => (
+                            <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
+                                <AvatarComponent variant='small' label={user.name} />
+                                <p className='ml-2 font-medium'>{user.name}</p>
+                                <p className='ml-2 font-light'>{user.departament}</p>
                             </ListItem>
                         )}
                     />
-                ) : (
-                    <Input name='category' placeholder='category' required />
-                )}
-            </div>
-            <div className='flex flex-col gap-3'>
-            <Input name='taskName' required placeholder='task name' setValue={setTaskName} />
-<Input name='taskDescription' required placeholder='task description' setValue={setTaskDescription} />
+                </StyledWrapper>
 
+                <StyledWrapper>
+                    <InputSearch
+                        name='team'
+                        placeHolder='Team'
+                        data={teams}
+                        render={(team, fn) => (
+                            <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
+                                <p>{team.departament}</p>
+                            </ListItem>
+                        )}
+                    />
+                </StyledWrapper>
+
+                <StyledWrapper >
+                    {!isNewTeam ? (
+                        <InputSearch 
+                            name='category'
+                            placeHolder='Category'
+                            data={categories ? categories : []}
+                            render={(category, fn) => (
+                                <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
+                                    <p>{category.name}</p>
+                                </ListItem>
+                            )}
+                        />
+                    ) : (
+                        <Input name='category' placeholder='Category' required />
+                    )}
+                </StyledWrapper>
+
+            </div>
+
+            <StyledWrapper>
+                <Input 
+                    name='taskName' 
+                    required 
+                    placeholder='Task Name' 
+                    setValue={setTaskName}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <Input 
+                    name='taskDescription' 
+                    required 
+                    placeholder='Task Description' 
+                    setValue={setTaskDescription}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
                 <InputSearch
-                    placeHolder='priority'
+                    placeHolder='Priority'
                     data={priorities}
                     render={(priority, fn) => (
                         <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
@@ -246,9 +274,10 @@ function TaskForm({
                         </ListItem>
                     )}
                 />
-            </div>
+            </StyledWrapper>
         </div>
-        {error && <div className='text-red-500 text-center'>{error}</div>}
+
+        {error && <div className='text-red-500 text-center mt-4'>{error}</div>}
         <div className='flex justify-center min-t-[6vh] mt-4'>
             <ButtonComponent size='large' variant='hover' type='submit' label="Create Task" />
         </div>

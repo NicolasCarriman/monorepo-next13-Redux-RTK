@@ -5,7 +5,7 @@ function ListItem(props: HTMLAttributes<HTMLDivElement>) {
     <div className='
     flex 
     flex-row 
-    gap-2 
+    gap- 
     h-8
     hover:bg-blue-200 
     hover:text-white 
