@@ -1,5 +1,5 @@
-'use client';
-import { InputHTMLAttributes } from 'react';
+"use client";
+import { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   setValue?: React.Dispatch<React.SetStateAction<string>>;
@@ -14,12 +14,14 @@ function Input({ setValue, ...props }: InputProps) {
 
   return (
     <input
+      id={props.name}
       autoFocus
-      className='outline-none w-full font-medium text-blue-200 bg-transparent placeholder-blue-300'
+      className="input-group__input outline-none w-full font-medium text-blue-200 bg-transparent placeholder-blue-300"
       onChange={handleInputChange}
       {...props}
     />
   );
 }
+
 
 export default Input;

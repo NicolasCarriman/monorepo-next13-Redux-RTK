@@ -26,19 +26,25 @@ import {
 } from "@core/models";
 import { projectSelector } from "@core/redux/reducers/projectSlice/project.selector";
 import React, { useState } from "react";
-import StyledWrapper from "./styleWrapper";
+import StyledWrapper from "./StyledWrapper";
+import "../../style/animate.module.css"
+import  FloatingLabelInput from "./FloatingLabelInput"
 
 interface TaskFormModal {
   closeModal: () => void;
   setTaskName: React.Dispatch<React.SetStateAction<string>>;
   setTaskDescription: React.Dispatch<React.SetStateAction<string>>;
+  setTaskPriority: React.Dispatch<React.SetStateAction<priorityType | string>>;
 }
 
 function TaskForm({
   closeModal,
+  
   setTaskName,
   setTaskDescription,
+  setTaskPriority,
 }: TaskFormModal) {
+  
   const [error, setError] = useState<undefined | string>(undefined);
   const [members, setMembers] = useState<{ name: string; id: string }[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<{
@@ -60,10 +66,12 @@ function TaskForm({
 
   const users = project.users as IUser[];
   const teams = project.teams as ProjectTeam[];
+
   const currentTeam =
     selectedTeam && teams?.find((t: ProjectTeam) => t.id === selectedTeam.id);
   const categories: category[] | undefined =
     currentTeam && currentTeam.categories;
+
   const isNewTeam = !currentTeam;
   const priorities = taskPriorities;
 
@@ -124,16 +132,18 @@ function TaskForm({
     const filtered = members.filter((member) => member.id !== id);
     setMembers(filtered);
   };
-
+  
   const handleTeam = (name: string, id: string, fn: onClickCallBack) => {
     fn(name);
     setSelectedTeam({
       name,
       id,
     });
+    console.log("Set Selected Team:", name, id);
   };
 
   const handleCategory = (name: string, id: string, fn: onClickCallBack) => {
+    // console.log("Name:", name, "ID:", id);
     fn(name);
     setCategory({
       name,
@@ -148,6 +158,7 @@ function TaskForm({
   ) => {
     fn(name);
     setPriority(name);
+    setTaskPriority(name);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -193,119 +204,121 @@ function TaskForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="gap-6 sm:flex-row-reverse bg-white p-6 shadow-lg">
-        <div className="flex-col gap-3 max-w-[45vh]">
-          <div className="mb-4">
-            <p className="font-semibold text-lg mb-2">Members:</p>
-            <List
-              className="flex flex-wrap border-none gap-1"
-              data={members}
-              renderedItem={(item) => (
-                <TaskTags variant="small">
-                  {item.name}
-                  <span
-                    onClick={() => deleteMembers(item.id)}
-                    className="ml-2 font-medium cursor-pointer"
-                  >
-                    X
-                  </span>
-                </TaskTags>
-              )}
-            />
-          </div>
+<form onSubmit={handleSubmit}>
+    <div className="gap-6 sm:flex-row-reverse bg-white p-6 shadow-lg">
+        <div className="flex-col gap-3 max-w-[45vh] ">
 
-          <StyledWrapper>
-            <InputSearch
-              placeHolder="Users"
-              data={users}
-              render={(user, fn) => (
-                <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
-                  <AvatarComponent variant="small" label={user.name} />
-                  <p className="ml-2 font-medium">{user.name}</p>
-                  <p className="ml-2 font-light">{user.departament}</p>
-                </ListItem>
-              )}
-            />
-          </StyledWrapper>
-          <StyledWrapper>
-            <InputSearch
-              name="team"
-              placeHolder="Team"
-              data={teams}
-              render={(team, fn) => (
-                <ListItem
-                  onClick={() => handleTeam(team.departament, team.id, fn)}
-                >
-                  <p>{team.departament}</p>
-                </ListItem>
-              )}
-            />
-          </StyledWrapper>
-          <StyledWrapper>
-            {!isNewTeam ? (
-              <InputSearch
-                name="category"
-                placeHolder="Category"
-                data={categories ? categories : []}
-                render={(category, fn) => (
-                  <ListItem
-                    onClick={() =>
-                      handleCategory(category.name, category.id, fn)
-                    }
-                  >
-                    <p>{category.name}</p>
-                  </ListItem>
+            <div className="mb-4 ">
+                <p className="font-semibold text-lg mb-2">Members:</p>
+                <List
+                    className="flex flex-wrap border-none gap-1"
+                    data={members}
+                    renderedItem={(item) => (
+                        <TaskTags variant="small">
+                            {item.name}
+                            <span
+                                onClick={() => deleteMembers(item.id)}
+                                className="ml-2 font-medium cursor-pointer">
+                                X
+                            </span>
+                        </TaskTags>
+                    )}
+                />
+            </div>
+            <StyledWrapper>
+                <InputSearch
+                    placeHolder="Users"
+                    data={users}
+                    render={(user, fn) => (
+                        <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
+                            <AvatarComponent variant="small" label={user.name} />
+                            <p className="ml-2 font-medium">{user.name}</p>
+                            <p className="ml-2 font-light">{user.departament}</p>
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <InputSearch
+                    name="team"
+                    placeHolder="Team"
+                    data={teams}
+                    render={(team, fn) => (
+                        <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
+                            <p>{team.departament}</p>
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                {!isNewTeam ? (
+                    <InputSearch
+                        name="teamcategory"
+                        placeHolder="Category"
+                        data={categories ? categories : []}
+                        render={(category, fn) => (
+                            <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
+                                <p>{category.name}</p>
+                            </ListItem>
+                        )}
+                    />
+                ) : (
+                  <FloatingLabelInput
+                  name="teamcategory"
+                  required
+                  placeholder="Category"
+                  onChange={(e) => setTaskName(e.target.value)}
+                  />
                 )}
-              />
-            ) : (
-              <Input name="category" placeholder="Category" required />
-            )}
-          </StyledWrapper>
+            </StyledWrapper>
+                    
+            <StyledWrapper >
+                <FloatingLabelInput
+                    name="taskName"
+                    required
+                    placeholder="Task Name"
+                    onChange={(e) => setTaskName(e.target.value)}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <FloatingLabelInput
+                    name="taskDescription"
+                    required
+                    placeholder="Task Description"
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <InputSearch
+                    placeHolder="Priority"
+                    data={priorities}
+                    render={(priority, fn) => (
+                        <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
+                            <TaskPriority priority={priority.name} />
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+            
         </div>
-        <StyledWrapper>
-          <Input
-            name="taskName"
-            required
-            placeholder="Task Name"
-            setValue={setTaskName}
-          />
-        </StyledWrapper>
-        <StyledWrapper>
-          <Input
-            name="taskDescription"
-            required
-            placeholder="Task Description"
-            setValue={setTaskDescription}
-          />
-        </StyledWrapper>
 
-        <StyledWrapper>
-          <InputSearch
-            placeHolder="Priority"
-            data={priorities}
-            render={(priority, fn) => (
-              <ListItem
-                onClick={() => handlePriority(priority.name, priority.id, fn)}
-              >
-                <TaskPriority priority={priority.name} />
-              </ListItem>
-            )}
-          />
-        </StyledWrapper>
-      </div>
+        {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+        
+        <div className="flex justify-center min-t-[6vh] mt-4">
+            <ButtonComponent
+                size="large"
+                variant="hover"
+                type="submit"
+                label="Create Task"
+            />
+        </div>
+    </div>
+</form>
 
-      {error && <div className="text-red-500 text-center mt-4">{error}</div>}
-      <div className="flex justify-center min-t-[6vh] mt-4">
-        <ButtonComponent
-          size="large"
-          variant="hover"
-          type="submit"
-          label="Create Task"
-        />
-      </div>
-    </form>
   );
 }
-
 export default TaskForm;
