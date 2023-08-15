@@ -1,38 +1,63 @@
-'use client';
-import { TaskPriority, TaskTags } from '@app/components/common';
-import AvatarComponent from '@app/components/common/avatar';
-import ButtonComponent from '@app/components/common/button';
-import Button from '@app/components/common/button';
-import Input from '@app/components/common/input';
-import List from '@app/components/common/list';
-import ListItem from '@app/components/common/listItem';
-import InputSearch, { onClickCallBack } from '@app/components/ui/inputSearch/inputSearch';
-import { useAppSelector } from '@app/hooks/redux';
-import { useProject } from '@app/hooks/useProject';
-import { useTask } from '@app/hooks/useTasks';
-import { useTeam } from '@app/hooks/useTeam';
-import { getRandomId } from '@app/utils';
-import { taskPriorities } from '@app/utils/priority';
-import { ITask, ITeam, ITeamCategory, ProjectTeam, category, priorityType, IUser } from '@core/models';
-import { projectSelector } from '@core/redux/reducers/projectSlice/project.selector';
-import React, { useState } from 'react';
-
-
+"use client";
+import { TaskPriority, TaskTags } from "@app/components/common";
+import AvatarComponent from "@app/components/common/avatar";
+import ButtonComponent from "@app/components/common/button";
+import Button from "@app/components/common/button";
+import Input from "@app/components/common/input";
+import List from "@app/components/common/list";
+import ListItem from "@app/components/common/listItem";
+import InputSearch, {
+  onClickCallBack,
+} from "@app/components/ui/inputSearch/inputSearch";
+import { useAppSelector } from "@app/hooks/redux";
+import { useProject } from "@app/hooks/useProject";
+import { useTask } from "@app/hooks/useTasks";
+import { useTeam } from "@app/hooks/useTeam";
+import { getRandomId } from "@app/utils";
+import { taskPriorities } from "@app/utils/priority";
+import {
+  ITask,
+  ITeam,
+  ITeamCategory,
+  ProjectTeam,
+  category,
+  priorityType,
+  IUser,
+} from "@core/models";
+import { projectSelector } from "@core/redux/reducers/projectSlice/project.selector";
+import React, { useState } from "react";
+import StyledWrapper from "./StyledWrapper";
+import "../../style/animate.module.css"
+import  FloatingLabelInput from "./FloatingLabelInput"
 
 interface TaskFormModal {
   closeModal: () => void;
+  setTaskName: React.Dispatch<React.SetStateAction<string>>;
+  setTaskDescription: React.Dispatch<React.SetStateAction<string>>;
+  setTaskPriority: React.Dispatch<React.SetStateAction<priorityType | string>>;
 }
 
 function TaskForm({
-  closeModal
+  closeModal,
+  
+  setTaskName,
+  setTaskDescription,
+  setTaskPriority,
 }: TaskFormModal) {
+  
   const [error, setError] = useState<undefined | string>(undefined);
-  const [members, setMembers] = useState<{ name: string, id: string }[]>([]);
-  const [selectedTeam, setSelectedTeam] = useState<{ name: string, id: string }>({
-    name: '',
-    id: '',
+  const [members, setMembers] = useState<{ name: string; id: string }[]>([]);
+  const [selectedTeam, setSelectedTeam] = useState<{
+    name: string;
+    id: string;
+  }>({
+    name: "",
+    id: "",
   });
-  const [category, setCategory] = useState<{ name: string, id: string }>({ name: '', id: '' });
+  const [category, setCategory] = useState<{ name: string; id: string }>({
+    name: "",
+    id: "",
+  });
   const [priority, setPriority] = useState<priorityType>();
   const { team, updateTeamCategory, addNewCategory } = useTeam();
   const { addNewTeam } = useProject();
@@ -41,25 +66,26 @@ function TaskForm({
 
   const users = project.users as IUser[];
   const teams = project.teams as ProjectTeam[];
-  const currentTeam = selectedTeam && teams?.find((t: ProjectTeam) => t.id === selectedTeam.id);
-  const categories: category[] | undefined = currentTeam && currentTeam.categories;
+
+  const currentTeam =
+    selectedTeam && teams?.find((t: ProjectTeam) => t.id === selectedTeam.id);
+  const categories: category[] | undefined =
+    currentTeam && currentTeam.categories;
+
   const isNewTeam = !currentTeam;
   const priorities = taskPriorities;
 
   const updateCategory = (newTask: ITask) => {
-    const currentCategory = team.teamCategory.find((c) => c.categoryid === category.id);
+    const currentCategory = team.teamCategory.find(
+      (c) => c.categoryid === category.id
+    );
     if (!currentCategory) return;
     const updatedCategory: ITeamCategory = {
       name: currentCategory.name,
-      tasks: [...currentCategory.tasks,
-      newTask.taskId
-      ],
-      usersId: [
-        ...currentCategory.usersId,
-        ...members.map((m) => m.id)
-      ],
+      tasks: [...currentCategory.tasks, newTask.taskId],
+      usersId: [...currentCategory.usersId, ...members.map((m) => m.id)],
       categoryid: currentCategory.categoryid,
-      goals: currentCategory.goals
+      goals: currentCategory.goals,
     };
 
     updateTeamCategory(updatedCategory);
@@ -69,9 +95,9 @@ function TaskForm({
     const newCategory: ITeamCategory = {
       name: categoryName,
       tasks: [taskId],
-      usersId: members.map(m => m.id),
+      usersId: members.map((m) => m.id),
       categoryid: getRandomId(),
-      goals: []
+      goals: [],
     };
     addNewCategory(newCategory);
   };
@@ -83,13 +109,12 @@ function TaskForm({
       categories: [
         {
           name: categoryName,
-          id: getRandomId()
-        }
-      ]
+          id: getRandomId(),
+        },
+      ],
     };
 
     addNewTeam(newTeam);
-      
   };
 
   const handleUsers = (name: string, id: string, fn: onClickCallBack) => {
@@ -98,28 +123,27 @@ function TaskForm({
       id,
     };
     fn(name);
-    if (members.find(m => m.id === id)) return;
+    if (members.find((m) => m.id === id)) return;
 
-    setMembers([
-      ...members,
-      newMember,
-    ]);
+    setMembers([...members, newMember]);
   };
 
   const deleteMembers = (id: string) => {
-    const filtered = members.filter(member => member.id !== id);
+    const filtered = members.filter((member) => member.id !== id);
     setMembers(filtered);
   };
-
+  
   const handleTeam = (name: string, id: string, fn: onClickCallBack) => {
     fn(name);
     setSelectedTeam({
       name,
       id,
     });
+    console.log("Set Selected Team:", name, id);
   };
 
   const handleCategory = (name: string, id: string, fn: onClickCallBack) => {
+    // console.log("Name:", name, "ID:", id);
     fn(name);
     setCategory({
       name,
@@ -127,9 +151,14 @@ function TaskForm({
     });
   };
 
-  const handlePriority = (name: priorityType, id: string, fn: onClickCallBack) => {
+  const handlePriority = (
+    name: priorityType,
+    id: string,
+    fn: onClickCallBack
+  ) => {
     fn(name);
     setPriority(name);
+    setTaskPriority(name);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -140,155 +169,156 @@ function TaskForm({
     let formValues: { [keyof: string]: FormDataEntryValue } = {};
 
     if (!priority) {
-      setError('Invalid priority');
+      setError("Invalid priority");
       return;
     } else setError(undefined);
     if (members.length === 0) {
-      setError('add members');
+      setError("add members");
       return;
     } else setError(undefined);
-
 
     for (let [name, value] of formData.entries()) {
       formValues[name] = value;
     }
 
     const newTask: ITask = {
-      taskName: formValues['taskName'] as string,
+      taskName: formValues["taskName"] as string,
       taskDate: today,
-      taskDescription: formValues['taskDescription'] as string,
-      taskCategory: formValues['category'] as string || category.id,
+      taskDescription: formValues["taskDescription"] as string,
+      taskCategory: (formValues["category"] as string) || category.id,
       taskPriority: priority,
       taskId: getRandomId(),
-      taskStatus: 'inProgress',
-      taskUsersId: members.map(m => m.id),
-      subtasks: []
+      taskStatus: "inProgress",
+      taskUsersId: members.map((m) => m.id),
+      subtasks: [],
     };
-    const isNewCategory = formValues['category'] as string !== category.name;
+    const isNewCategory = (formValues["category"] as string) !== category.name;
 
     if (!isNewTeam && !isNewCategory) updateCategory(newTask);
-    if (!isNewTeam && isNewCategory) addCategory(newTask.taskId, formValues['category'] as string);
-    if (isNewTeam) addTeam(formValues['team'] as string, formValues['category'] as string);
+    if (!isNewTeam && isNewCategory)
+      addCategory(newTask.taskId, formValues["category"] as string);
+    if (isNewTeam)
+      addTeam(formValues["team"] as string, formValues["category"] as string);
     addNewTask(newTask);
     closeModal();
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
-      <div
-        className='flex flex-col w-auto justify-center items-center gap-6 sm:flex-row-reverse sm:items-end '
-      >
-        <div className='flex flex-col gap-3 max-w-[45vh]' >
-          <div>
-            <p>members:</p>
-            <List
-              className='flex flex-wrap border-none gap-1'
-              data={members}
-              renderedItem={
-                (item) => (
-                  <TaskTags variant='small'>
-                    {item.name}
-                    <span
-                      onClick={() => deleteMembers(item.id)}
-                      className='font-medium cursor-pointer'
-                    >X
-                    </span>
-                  </TaskTags>
-                )
-              }
+<form onSubmit={handleSubmit}>
+    <div className="gap-6 sm:flex-row-reverse bg-white p-6 shadow-lg">
+        <div className="flex-col gap-3 max-w-[45vh] ">
+
+            <div className="mb-4 ">
+                <p className="font-semibold text-lg mb-2">Members:</p>
+                <List
+                    className="flex flex-wrap border-none gap-1"
+                    data={members}
+                    renderedItem={(item) => (
+                        <TaskTags variant="small">
+                            {item.name}
+                            <span
+                                onClick={() => deleteMembers(item.id)}
+                                className="ml-2 font-medium cursor-pointer">
+                                X
+                            </span>
+                        </TaskTags>
+                    )}
+                />
+            </div>
+            <StyledWrapper>
+                <InputSearch
+                    placeHolder="Users"
+                    data={users}
+                    render={(user, fn) => (
+                        <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
+                            <AvatarComponent variant="small" label={user.name} />
+                            <p className="ml-2 font-medium">{user.name}</p>
+                            <p className="ml-2 font-light">{user.departament}</p>
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <InputSearch
+                    name="team"
+                    placeHolder="Team"
+                    data={teams}
+                    render={(team, fn) => (
+                        <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
+                            <p>{team.departament}</p>
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                {!isNewTeam ? (
+                    <InputSearch
+                        name="teamcategory"
+                        placeHolder="Category"
+                        data={categories ? categories : []}
+                        render={(category, fn) => (
+                            <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
+                                <p>{category.name}</p>
+                            </ListItem>
+                        )}
+                    />
+                ) : (
+                  <FloatingLabelInput
+                  name="teamcategory"
+                  required
+                  placeholder="Category"
+                  onChange={(e) => setTaskName(e.target.value)}
+                  />
+                )}
+            </StyledWrapper>
+                    
+            <StyledWrapper >
+                <FloatingLabelInput
+                    name="taskName"
+                    required
+                    placeholder="Task Name"
+                    onChange={(e) => setTaskName(e.target.value)}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <FloatingLabelInput
+                    name="taskDescription"
+                    required
+                    placeholder="Task Description"
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                />
+            </StyledWrapper>
+
+            <StyledWrapper>
+                <InputSearch
+                    placeHolder="Priority"
+                    data={priorities}
+                    render={(priority, fn) => (
+                        <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
+                            <TaskPriority priority={priority.name} />
+                        </ListItem>
+                    )}
+                />
+            </StyledWrapper>
+            
+        </div>
+
+        {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+        
+        <div className="flex justify-center min-t-[6vh] mt-4">
+            <ButtonComponent
+                size="large"
+                variant="hover"
+                type="submit"
+                label="Create Task"
             />
-          </div>
-          <InputSearch
-            placeHolder='users'
-            data={users}
-            render={
-              (user, fn) => (
-                <ListItem
-                  onClick={() => handleUsers(user.name, user.id, fn)}
-                >
-                  <AvatarComponent variant='small' label={user.name} />
-                  <p className='font-medium'>{user.name}</p>
-                  <p className='font-light'>{user.departament}</p>
-                </ListItem>
-              )} />
-          <InputSearch
-            name='team'
-            placeHolder='team'
-            data={teams}
-            render={
-              (team: ITeam, fn) => (
-                <ListItem
-                  onClick={
-                    () => handleTeam(team.departament, team.id, fn)
-                  }
-                >
-                  <p>
-                    {team.departament}
-                  </p>
-                </ListItem>
-              )} />
-          {
-            !isNewTeam ?
-              <InputSearch
-                name='category'
-                placeHolder='category'
-                data={categories ? categories : []}
-                render={
-                  (category: category, fn) => (
-                    <ListItem
-                      onClick={
-                        () => handleCategory(category.name, category.id, fn)
-                      }
-                    >
-                      <p>
-                        {category.name}
-                      </p>
-                    </ListItem>
-                  )} />
-              : <Input name='category' placeholder='category' required />
-          }
         </div>
-        <div className='flex flex-col gap-3'>
-          <Input name='taskName' required placeholder='task name' />
-          <Input name='taskDescription' required placeholder='task description' />
-          <InputSearch
-            placeHolder='priotiy'
-            data={priorities}
-            render={
-              (priority, fn) => (
-                <ListItem
-                  onClick={
-                    () => handlePriority(priority.name, priority.id, fn)
-                  }
-                >
-                  <TaskPriority priority={priority.name} />
-                </ListItem>
-              )
-            }
-          />
-        </div>
-      </div>
-      {
-        error &&
-        <div className='text-red-500 text-center '>
-          {error}
-        </div>
-      }
-      <div className='flex justify-center  min-t-[6vh] mt-4 ' >
-      <div className='flex justify-center min-t-[6vh] mt-4'>
-  <ButtonComponent 
-    
-    size='large'
-    variant='hover'
-    type='submit'
-    label="Create Task"
-  />
-</div>
-      </div>
-    </form>
+    </div>
+</form>
+
   );
 }
-
 export default TaskForm;
