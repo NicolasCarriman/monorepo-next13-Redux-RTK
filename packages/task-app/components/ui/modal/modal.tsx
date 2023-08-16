@@ -1,7 +1,7 @@
-import { priorityType } from "@core/models";
-import React, { ReactNode, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import TaskPreview from "./TaskPreview";
+import { priorityType } from '@core/models';
+import React, { ReactNode, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import TaskPreview from './TaskPreview';
 
 interface ModalProps {
   isOpen: boolean;
@@ -34,7 +34,7 @@ function ModalComponent({
     className="z-[200] fixed inset-0 flex items-center justify-center backdrop-filter backdrop-brightness-0 backdrop-opacity-50 transition-opacity duration-500"
   >
     <div
-      className="bg-white p-4 md:p-6 w-full max-w-2xl rounded-lg shadow-xl z-[300] transform transition-transform duration-500"
+      className="bg-white p-4 md:p-6 w-[70vw] rounded-lg shadow-xl z-[300] transform transition-transform duration-500"
       onClick={(e) => e.stopPropagation()}
     >
         <div className="relative">
@@ -54,7 +54,7 @@ function ModalComponent({
               {children}
             </div>
             <div className="flex-1 ml-4">
-              <h3 className="text-gray-600 font-medium mb-4 font-semibold ">
+              <h3 className="text-gray-600 mb-4 font-semibold ">
                 Task Preview:
               </h3>
               <TaskPreview
@@ -70,7 +70,7 @@ function ModalComponent({
   ) : null;
 
   if (isMounted) {
-    const modalRoot = document.getElementById("modal-root");
+    const modalRoot = document.getElementById('modal-root');
     return modalRoot ? ReactDOM.createPortal(modalComponent, modalRoot) : null;
   }
   return null;

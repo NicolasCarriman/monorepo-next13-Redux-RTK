@@ -1,9 +1,9 @@
 import React, { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { useSpring, animated } from '@react-spring/web';
 
 interface ListProps extends HTMLAttributes<HTMLDivElement> {
   data: any[];
+  // eslint-disable-next-line no-unused-vars
   renderedItem: (item: any) => React.ReactNode;
   className?: string;
 }
@@ -14,21 +14,10 @@ function List({
   className,
   ...rest
 }: ListProps) {
-  const isListVisible = data.length > 0;
-
-  const animationProps = useSpring({
-    opacity: isListVisible ? 1 : 0,
-    maxHeight: isListVisible ? '250px' : '0px',
-    config: {
-      tension: 280,
-      friction: 60
-    }
-  });
 
   return (
-    <animated.div
+    <div
       {...rest}
-      style={animationProps}
       className={twMerge(`
       rounded-lg 
       shadow-md  
@@ -47,7 +36,7 @@ function List({
           ))
         }
       </div>
-    </animated.div>
+    </div>
   );
 }
 

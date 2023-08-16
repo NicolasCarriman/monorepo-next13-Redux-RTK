@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { TableContent } from "./taskTable.styled";
-import { ITask } from "@core/models/task.model";
-import React from "react";
-import { useTask } from "@app/hooks/useTasks";
+import { TableContent } from './taskTable.styled';
+import { ITask } from '@core/models/task.model';
+import React from 'react';
+import { useTask } from '@app/hooks/useTasks';
 
 interface TaskTableProps {
   data?: ITask[] | null;
@@ -19,7 +19,7 @@ function TaskTable({ data }: TaskTableProps) {
 
   return (
     <div className="overflow-auto max-h-700px">
-      <table style={{ borderCollapse: "separate", borderSpacing: "0 1em" }}>
+      <table style={{ borderCollapse: 'separate', borderSpacing: '0 1em' }}>
         <thead className="z-20 sticky top-0 bg-slate-100 h-12 text-blue-200">
           <tr>
             <th className="w-1/4">Name</th>

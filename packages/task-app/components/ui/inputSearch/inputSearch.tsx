@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import List from "@app/components/common/list";
-import FloatingLabelInput from "../../../app/dashboard/compoenents/FloatingLabelInput";
+import React, { useState, useRef, useEffect } from 'react';
+import List from '@app/components/common/list';
+import FloatingLabelInput from '../../../app/dashboard/compoenents/FloatingLabelInput';
 
+// eslint-disable-next-line no-unused-vars
 export type onClickCallBack = (name: string) => void;
 
 interface InputSearchProps {
   data: unknown[];
   disabled?: boolean;
+  // eslint-disable-next-line no-unused-vars
   render: (item: any, arg: onClickCallBack) => React.ReactNode;
   placeHolder: string;
   name?: string;
@@ -17,9 +19,8 @@ function InputSearch({
   disabled = false,
   render,
   placeHolder,
-  name,
 }: InputSearchProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [showList, setShowList] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -37,14 +38,14 @@ function InputSearch({
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className="flex flex-col relative" ref={containerRef}>
+    <div className="flex flex-col relative w-full" ref={containerRef}>
       <FloatingLabelInput
         placeholder={placeHolder}
         onClick={handleShow}
@@ -55,12 +56,11 @@ function InputSearch({
       {showList && (
         <>
           {/* Este div actúa como el overlay. Al hacer clic, se cierra el menú */}
-          <div className="fixed inset-0 z-10 bg-black opacity-50" onClick={() => setShowList(false)}></div>
-          
-          <List 
-            key={showList.toString()}
+          <div className="fixed inset-0 z-[100]  backdrop-brightness-[0.9] transition-all " onClick={() => setShowList(false)} />
 
-            className={`custom-list-item-spacing ${showList ? "absolute mt-2 z-20 ml-2 p-1" : "hidden"} bg-white w-full`}
+          <List
+            key={showList.toString()}
+            className={`custom-list-item-spacing ${showList ? 'absolute z-[101] mt-[5.7rem] p-1' : 'hidden'} bg-white w-full`}
             data={data}
             renderedItem={(item) => render(item, handleClick)}
           />
@@ -76,13 +76,3 @@ function InputSearch({
 }
 
 export default InputSearch;
-
-
-
-
-
-
-
-
-
-

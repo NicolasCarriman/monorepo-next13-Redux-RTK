@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 interface TaskPreviewProps {
   taskName?: string;
@@ -59,34 +59,34 @@ const TaskPreview: React.FC<TaskPreviewProps> = ({ taskName, taskDescription, ta
       <div className="hover-container">
         <div className={`card-container ${isExpanded ? 'expanded' : ''}`}>
           <div className={`card ${isFlipped ? 'rotate-y-180' : ''}`}>
-            <div className={`border rounded-lg p-6 shadow-2xl transform bg-gray-100`}>
+            <div className={'border rounded-lg p-6 shadow-2xl transform bg-gray-100'}>
               <h3 className="text-2xl font-bold mb-3 text-gray-800">
-                {taskName || "Task Name"}
+                {taskName || 'Task Name'}
               </h3>
               <p className="text-lg text-gray-600">
-                {taskDescription || "Task Description"}
+                {taskDescription || 'Task Description'}
               </p>
               {isExpanded && (
                 <p className="text-lg text-gray-600 mt-3">
-                  <strong className="text-gray-700">Priority:</strong> {taskPriority || "not set" }
+                  <strong className="text-gray-700">Priority:</strong> {taskPriority || 'not set' }
                 </p>
               )}
             </div>
             <div className="card-back border rounded-lg p-6 shadow-2xl bg-gray-100">
               {!isExpanded ? (
                 <p className="text-lg text-gray-600">
-                  <strong className="text-gray-700">Priority:</strong> {taskPriority || "not set" }
+                  <strong className="text-gray-700">Priority:</strong> {taskPriority || 'not set' }
                 </p>
               ) : (
                 <>
                   <h3 className="text-2xl font-bold mb-3 text-gray-800">
-                    {taskName || "Task Name"}
+                    {taskName || 'Task Name'}
                   </h3>
                   <p className="text-lg text-gray-600">
-                    {taskDescription || "Task Description"}
+                    {taskDescription || 'Task Description'}
                   </p>
                   <p className="text-lg text-gray-600 mt-3">
-                    <strong className="text-gray-700">Priority:</strong> {taskPriority || "not set" }
+                    <strong className="text-gray-700">Priority:</strong> {taskPriority || 'not set' }
                   </p>
                 </>
               )}
@@ -99,69 +99,3 @@ const TaskPreview: React.FC<TaskPreviewProps> = ({ taskName, taskDescription, ta
 };
 
 export default TaskPreview;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* import React, { useState, useEffect } from "react";
-import Cube3DPreview from "./Cube3DPreview";
-
-interface TaskPreviewProps {
-  taskName?: string;
-  taskDescription?: string;
-  taskPriority?: string;
-}
-
-const TaskPreview: React.FC<TaskPreviewProps> = ({ taskName, taskDescription, taskPriority }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  useEffect(() => {
-    if (taskName && taskDescription && taskPriority) {
-      setIsFlipped(true);
-    } else {
-      setIsFlipped(false);
-    }
-  }, [taskName, taskDescription, taskPriority]);
-
-  return (
-    <>
-      <style jsx>{`
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-      `}</style>
-      <div className={`border rounded-lg p-4 shadow-2xl transform bg-gray-50 transition-transform duration-300 hover:scale-105 hover:translate-y-[-5px] perspective-[1000px] ${isFlipped ? 'rotate-y-180' : ''}`}>
-        <h3 className="text-xl font-bold mb-2">
-          {taskName || "Task Name"}
-        </h3>
-        <p className="text-gray-600">
-          {taskDescription || "Task Description"}
-        </p>
-        <p className="text-gray-600">
-          <strong>Priority:</strong> {taskPriority || "not set" }
-        </p>
-      </div>
-    </>
-  );
-};
-
-export default TaskPreview; */

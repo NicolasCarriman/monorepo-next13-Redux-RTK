@@ -2,7 +2,6 @@ import { taskSelector } from '@core/redux/reducers/taskSlice/task.selector';
 import { useAppDispatch, useAppSelector } from './redux';
 import { TaskState } from '@core/redux/reducers/taskSlice/task.state';
 import {
-  addSubtask,
   addTask,
   deleteTask,
   selectCurrentSubtask,
@@ -11,12 +10,10 @@ import {
 } from '@core/redux/reducers/taskSlice/task.slice';
 import { ITask, statusType, subtask, subtaskItem } from '@core/models';
 import { useTeam } from './useTeam';
-import { store } from '@core/index';
-import { getRandomId } from '@app/utils/uid';
+import { Subtask, TaskClass } from '@core/utils';
 
 export const useTask = () => {
   const taskState = useAppSelector(taskSelector) as TaskState;
-  const team = store.getState().team;
   const dispatch = useAppDispatch();
   const { getCurrentCategory } = useTeam();
 
@@ -48,22 +45,6 @@ export const useTask = () => {
     setSubTaskId(subtask);
   };
 
-  /**
-   * if not have current taskId on the store
-   * the code search the first task from the current category team
-   */
-
-  const getCurrentTaskId = () => {
-    if (!taskState.currentTask) {
-      const category = team.currentCategoryId && getCurrentCategory(team.currentCategoryId);
-      const taskId = category && category.tasks[0];
-      return taskId;
-    } else {
-      const currentTask = getCurrentTask(taskState.currentTask);
-      return currentTask.taskId;
-    }
-  };
-
   const deleteCurrentTask = (id: string) => {
     if (id === taskState.currentTask) {
       dispatch(selectCurrentTask(''));
@@ -73,30 +54,31 @@ export const useTask = () => {
   };
 
   /**
-   * need to have currentTaskId on the store
+   * this function return the subtask id of the current subtask on the store
+   * @param taskId the id of the current task selected on the store
    */
 
-  const getCurrentSubtaskId = (taskId: string) => {
+  function getCurrentSubtaskId(taskId: string) {
     const task = getCurrentTask(taskId);
     if (!task) return;
 
     const subtasks = task.subtasks;
     if (!subtasks) return;
-    if(subtasks.length === 0) return;
+    if (subtasks.length === 0) return;
 
     const currentSubtask = subtasks[0].id;
     return currentSubtask;
   };
 
-  const getCurrentSubtask = (subTaskId: string) => {
+  const getCurrentSubtask = (subTaskId: string): subtask | undefined => {
     const task = getCurrentTask(taskState.currentTask);
     if (!task) return;
     const subtasks = task.subtasks;
     if (!subtasks) return;
-    else {
-      const currentSubtask = subtasks.find((subT) => (subT.id === subTaskId));
-      return currentSubtask;
-    }
+
+    const currentSubtask = subtasks.find((subT) => (subT.id === subTaskId));
+    return currentSubtask;
+
   };
 
   /**
@@ -106,96 +88,53 @@ export const useTask = () => {
    */
 
   const addSubtaskItem = (item: subtaskItem) => {
-    const tasks = taskState.tasks;
     const taskId = taskState.currentTask;
     const subtaskId = taskState.currentSubtask;
-    const currentTask: ITask | undefined = tasks.find((t: ITask) => t.taskId === taskId);
+    const currentTask: ITask | undefined = getCurrentTask(taskId);
 
-    if (!currentTask?.subtasks) return;
-    const subtasks = currentTask.subtasks;
-    // verify if the task exists in the store
-    const currentSubtask = currentTask.subtasks.find((s: subtask) => s.id === subtaskId);
-    if (!currentSubtask) return;
-    // check if current subtask exists in the store
-    
-    const updatedCurrentSubtask = {
-      //copy of current subtask
-      ...currentSubtask,
-      items: [...currentSubtask.items, item]
-    };
+    const task = new TaskClass({ ...currentTask });
+    const subtask = task.getSubtask(subtaskId);
 
-    if(!subtasks) return;
-    const updatedSubtasks = subtasks.map((subT) => {
-      if (subT.id === subtaskId) {
-        return updatedCurrentSubtask;
-      } else return subT;
-    });
-  
-    const updatedTask = {
-      ...currentTask,
-      subtasks: updatedSubtasks
-    };
+    function addStItem(subtask: Subtask) {
+      if (!subtask) return;
+      subtask.addSubtaskItem(item);
+    }
+
+    addStItem(subtask);
+
     // remplace the subtask updated item on the current task
-    dispatch(updateTask(updatedTask));
+    dispatch(updateTask(task.getTask()));
   };
 
-  const setSubtaskItem = (done: boolean, id: string, item: string) => {
-    const tasks = taskState.tasks;
+  /**
+   *  this function is called to add change the check status from subtask on the current task
+   * @param done check if the subtask is done
+   * @param id id of the subtask
+   */
+
+  const setSubtaskItemCheck = (done: boolean, id: string) => {
     const taskId = taskState.currentTask;
     const subtaskId = taskState.currentSubtask;
-    const currentTask: ITask | undefined = tasks.find((t: ITask) => t.taskId === taskId);
-    const newItem: subtaskItem = {
-      item: item,
-      done: done,
-      id: id,
-    };
+    const currentTask: ITask = getCurrentTask(taskId);
+    const task = new TaskClass(currentTask);
+    const subtask = task.getSubtask(subtaskId);
 
+    function setCheck(subtask: Subtask, id: string, done: boolean): void {
+      subtask.editSubtaskItemCheck(id, done);
+    }
 
-    if (!currentTask?.subtasks) return;
-    const subtasks = currentTask.subtasks;
-    // verify if the task exists in the store
-    const currentSubtask = currentTask.subtasks.find((s: subtask) => s.id === subtaskId);
-    if (!currentSubtask) return;
-    // check if current subtask exists in the store
+    setCheck(subtask, id, done);
 
-    const updatedItem = currentSubtask.items.map((item) => {
-      if (item.id === id) return newItem;
-      else return item;
-    });
-
-    const updatedCurrentSubtask = {
-      //copy of current subtask
-      ...currentSubtask,
-      items: updatedItem
-    };
-
-    if(!subtasks) return;
-    const updatedSubtasks = subtasks.map((subT) => {
-      if (subT.id === subtaskId) {
-        return updatedCurrentSubtask;
-      } else return subT;
-    });
-
-    const updatedTask = {
-     ...currentTask,
-      subtasks: updatedSubtasks
-    };
-
-    dispatch(updateTask(updatedTask));
-  };
-
-  const createSubtask = (subtaskName: string) => {
-    const subtask = {
-      name: subtaskName,
-      id: getRandomId(),
-      items: []
-    };
-    return subtask;
+    dispatch(updateTask(task.getTask()));
   };
 
   const addNewSubtask = (subtaskName: string) => {
-    const subtask = createSubtask(subtaskName);
-    dispatch(addSubtask(subtask));
+    const currentTaskId = taskState.currentTask;
+    const currentTask = getCurrentTask(currentTaskId);
+    const task = new TaskClass(currentTask);
+    task.createSubtask(subtaskName);
+
+    dispatch(updateTask(task.getTask()));
   };
 
   const getAllSubtasksItems = () => {
@@ -231,16 +170,14 @@ export const useTask = () => {
 
   return {
     getCurrentCategory,
-    getCurrentSubtaskId,
-    getCurrentTaskId,
     getCurrentTask,
     setCurrentTask,
     setSubTaskId,
     getCurrentSubtask,
     addSubtaskItem,
     addNewSubtask,
-    setSubtaskItem,
     getAllSubtasksItems,
+    setSubtaskItemCheck,
     deleteCurrentTask,
     addNewTask,
     changeStatus,
