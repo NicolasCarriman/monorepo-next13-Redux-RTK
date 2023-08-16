@@ -7,35 +7,51 @@ import React, { useEffect, useState } from 'react';
 import TaskForm from './taskForm';
 import { useTeam } from '@app/hooks/useTeam';
 import useLocalStorage from '@app/hooks/useLocalStorage';
+import { priorityType } from '@core/models';
 
 function DashboardModal() {
   const { isOpen, onOpen, onClose } = useModal();
+  const [taskName, setTaskName] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+  const [taskPriority, setTaskPriority] = useState<priorityType | string>('');
   const { team } = useTeam();
-  // eslint-disable-next-line
-  const [value, setValue] = useLocalStorage('team', {});
   
+  const [value, setValue] = useLocalStorage('team', {});
+
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  }, []);
 
-useEffect(() => {
-  setValue(team);
-  // eslint-disable-next-line
-  }, [team])
-  
-  if(!isMounted) return null;
+  useEffect(() => {
+    setValue(team);
+  }, [team]);
+
+  if (!isMounted) return null;
 
   return (
     <>
-      <ButtonAdd onClick={onOpen}/>
-      <ModalComponent isOpen={isOpen} onClose={onClose} title={'Create Task'}>
-        <TaskForm closeModal={onClose} />
+      <ButtonAdd onClick={onOpen} />
+      <ModalComponent
+        isOpen={isOpen}
+        onClose={onClose}
+        taskName={taskName}
+        taskDescription={taskDescription}
+        taskPriority={taskPriority}
+        title={'Create Task'}
+      >
+       <TaskForm
+          closeModal={onClose}
+          setTaskName={setTaskName}
+          setTaskDescription={setTaskDescription}
+          setTaskPriority={setTaskPriority}
+        />
       </ModalComponent>
     </>
   );
 }
 
 export default DashboardModal;
+
+

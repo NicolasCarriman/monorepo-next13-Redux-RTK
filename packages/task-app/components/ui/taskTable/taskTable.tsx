@@ -18,29 +18,20 @@ function TaskTable({ data }: TaskTableProps) {
   };
 
   return (
-    <div
-      className='overflow-auto max-h-700px'
-    >
+    <div className="overflow-auto max-h-700px">
       <table style={{ borderCollapse: 'separate', borderSpacing: '0 1em' }}>
-        <thead
-          className='z-20 sticky top-0 bg-slate-100 h-12 text-blue-200'
-        >
+        <thead className="z-20 sticky top-0 bg-slate-100 h-12 text-blue-200">
           <tr>
-            <th className='w-1/4'>Name</th>
-            <th className='w-1/6'>User</th>
-            <th className='w-1/6'>Date</th>
-            <th className='w-1/6'>Status</th>
-            <th className='w-1/6'>Priority</th>
-            <th className='w-1/4'>Category</th>
+            <th className="w-1/4">Name</th>
+            <th className="w-1/6">User</th>
+            <th className="w-1/6">Date</th>
+            <th className="w-1/6">Status</th>
+            <th className="w-1/6">Priority</th>
+            <th className="w-1/4">Category</th>
           </tr>
         </thead>
-        <tbody className='z-1'>
-          {
-            data && <TableContent
-                data={data}
-                onDelete={handleDelete}
-              />
-          }
+        <tbody className="z-1">
+          {data && <TableContent data={data} onDelete={handleDelete} />}
         </tbody>
       </table>
     </div>
