@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import StyledWrapper from './StyledWrapper';
+import StyledWrapper from '../hoc/withInputStyle';
 
 interface FloatingLabelInputProps extends React.ComponentProps<'input'> {
   placeholder: string;
@@ -27,12 +27,35 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({ placeholder, ch
         <input
           {...rest}
           placeholder=""
-          className='block w-full px-2 py-3 text-xl bg-gray-100 border-none outline-none focus:border-blue-500 transition duration-200' // Ajuste del padding aquí
+          className='
+            h-[6vh] 
+            block 
+            w-full 
+            px-2 
+            py-3 
+            text-xl 
+            bg-gray-100 
+            border-none 
+            outline-none 
+            focus:border-blue-500 
+            transition 
+            duration-200' // Ajuste del padding aquí
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={handleInputChange}
         />
-        <span className={`absolute left-2 bottom-2 text-xl transition-transform duration-300 transform pointer-events-none ${isFocused || hasValue ? 'move-up text-gray-700' : 'text-gray-400'}`}>{placeholder}</span> {/* Ajuste de la posición bottom aquí */}
+        <span
+          className={`
+            absolute 
+            left-2 
+            bottom-2 
+            transition-transform 
+            duration-300 
+            transform 
+            pointer-events-none 
+            text-[2.5vh]
+            ${isFocused || hasValue ? 'move-up text-gray-700' : 'text-gray-400'}`}
+          >{placeholder}</span> {/* Ajuste de la posición bottom aquí */}
         {children}
 
         <style jsx>{`

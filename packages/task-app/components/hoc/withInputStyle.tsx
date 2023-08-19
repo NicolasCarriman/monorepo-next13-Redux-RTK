@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
-import '../../style/animate.module.css';
+import '../../app/style/animate.module.css';
 interface StyledWrapperProps {
   children: ReactNode;
 }
+
+//todo: turn this component into high order component
 
 const StyledWrapper: React.FC<StyledWrapperProps> = ({ children }) => (
   <div
@@ -11,13 +13,14 @@ const StyledWrapper: React.FC<StyledWrapperProps> = ({ children }) => (
     items-center
     w-full 
     gap-4 
-    border-gray-300 
-    border 
+    border
     rounded-lg 
-    p-4
-    bg-gray-50  // Fondo ligeramente diferente
+    h-auto
+    p-[2.5vh]
+    bg-gray-50 
     shadow-md
     hover:shadow-lg
+    border-gray-300
     transition-all duration-200 
     transform
     hover:translate-y-1 

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes } from 'react';
 
 function ListItem(props: HTMLAttributes<HTMLDivElement>) {
   return (
@@ -7,7 +7,8 @@ function ListItem(props: HTMLAttributes<HTMLDivElement>) {
     flex 
     flex-row 
     gap-2 
-    min-h-12
+    min-h-[4vh] 
+    pl-6
     hover:bg-blue-200 
     hover:text-white  
     rounded-md

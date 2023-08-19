@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import List from '@app/components/common/list';
-import FloatingLabelInput from '../../../app/dashboard/compoenents/FloatingLabelInput';
+import FloatingLabelInput from '@app/components/common/inputLabel';
 
 // eslint-disable-next-line no-unused-vars
 export type onClickCallBack = (name: string) => void;
@@ -12,6 +12,7 @@ interface InputSearchProps {
   render: (item: any, arg: onClickCallBack) => React.ReactNode;
   placeHolder: string;
   name?: string;
+  type?: 'default' | 'userPicker';
 }
 
 function InputSearch({
@@ -19,15 +20,21 @@ function InputSearch({
   disabled = false,
   render,
   placeHolder,
+  type = 'default'
 }: InputSearchProps) {
   const [value, setValue] = useState('');
   const [showList, setShowList] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  const isDefaultType = type === 'default';
+
   const handleShow = () => setShowList((state) => !state);
 
   const handleClick = (name: string) => {
-    setValue(name);
+    if (isDefaultType) {
+      setValue(name);
+    }
+
     setShowList(false);
   };
 

@@ -1,5 +1,5 @@
-"use client";
-import { InputHTMLAttributes } from "react";
+'use client';
+import { InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   setValue?: React.Dispatch<React.SetStateAction<string>>;
