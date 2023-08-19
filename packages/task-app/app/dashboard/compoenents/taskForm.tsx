@@ -24,7 +24,7 @@ import {
 import { projectSelector } from '@core/redux/reducers/projectSlice/project.selector';
 import React, { useState } from 'react';
 import '../../style/animate.module.css';
-import FloatingLabelInput from './FloatingLabelInput';
+import FloatingLabelInput from '@app/components/common/inputLabel';
 
 interface TaskFormModal {
   closeModal: () => void;
@@ -222,6 +222,7 @@ function TaskForm({
             />
           </div>
           <InputSearch
+            type='userPicker'
             placeHolder="Users"
             data={users}
             render={(user, fn) => (

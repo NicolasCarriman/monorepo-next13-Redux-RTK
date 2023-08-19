@@ -27,7 +27,6 @@ function List({
       overflow-y-hidden
       bg-white  
       `, className && className)}>
-      <div className="overflow-y-auto max-h-64">
         {
           data.map((item, index) => (
             <div key={index} className="py-2 mt-1 border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200">
@@ -35,7 +34,6 @@ function List({
             </div>
           ))
         }
-      </div>
     </div>
   );
 }

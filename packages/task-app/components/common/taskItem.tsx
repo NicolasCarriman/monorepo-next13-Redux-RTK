@@ -116,7 +116,7 @@ export const TaskTags: React.FC<TaskTagsProps> = ({ children, variant = 'medium'
       rounded-lg
       gap-2 
       cursor-default
-      `, variant === 'medium' ? 'max-w-min font-medium p-6 h-8' : 'whitespace-nowrap max-w-max font-light p-3 rounded-xl h-4'
+      `, variant === 'medium' ? 'max-w-min font-medium p-6 h-8' : 'whitespace-nowrap max-w-max font-light p-3 rounded-xl h-[1.8rem]'
       )}
     >
       {children}
