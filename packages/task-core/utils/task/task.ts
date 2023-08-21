@@ -1,6 +1,6 @@
 
-import { ITask, priorityType, statusType, subtaskItem, subtask } from '../models/index';
-import { getRandomId } from './getRandomId';
+import { ITask, priorityType, statusType, subtaskItem, subtask } from '../../models/index';
+import { getRandomId } from '../getRandomId';
 
 /**
  * this class is used as template to generate the task
@@ -10,7 +10,7 @@ import { getRandomId } from './getRandomId';
 class TaskBase {
 
   protected task: ITask;
-
+  
   constructor(task: ITask) {
     this.task = JSON.parse(JSON.stringify(task));
   }

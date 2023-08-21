@@ -24,8 +24,8 @@ function AvatarComponent({ label, variant = 'medium', isCurrentUser = false }: A
       flex 
       justify-center 
       items-center 
-      border-2
-      border-gray-200
+      border-2 
+      border-gray-200 
       `,
       medium,
       small,

@@ -12,6 +12,13 @@ import { setUser } from '@core/redux/reducers/userSlice/user.slice';
 import { setProject } from '@core/redux/reducers/projectSlice/project.slice';
 import { setTeam } from '@core/redux/reducers/teamSlice/team.slice';
 import { setTaskState } from '@core/redux/reducers/taskSlice/task.slice';
+import Layer from './components/layer';
+import RoundedBox from '@app/components/common/box';
+import SubtaskManager from '@app/components/ui/subtaskManager/subtaskManager';
+import DynamicSelector from '@app/components/ui/dynamicSelector/dynamicSelector';
+import { useTask } from '@app/hooks/useTasks';
+import SubtaskController from './components/withSubtaskList';
+import SubtaskList from './components/subtaskList';
 
 function Tasks() {
   const loaded = useRef(false);
@@ -24,6 +31,21 @@ function Tasks() {
   const [projectStored] = useLocalStorage('project', {});
   const [teamStored, setTeamStored] = useLocalStorage('team', {});
   const [taskStored, setTaskStored] = useLocalStorage('tasks', {});
+  const {
+    getCurrentTask,
+    setSubTaskId,
+    getCurrentSubtask,
+    addNewSubtask,
+    setSubtaskItemCheck
+  } = useTask();
+
+  const currentTask = getCurrentTask(tasks.currentTask);
+  const subtask = getCurrentSubtask(tasks.currentSubtask);
+
+  const handleChange = (checked: boolean, id: string) => {
+    // this function is responsible for update the checkbox
+    setSubtaskItemCheck(checked, id);
+  };
 
   useEffect(() => {
     userStored && dispatch(setUser(userStored));
@@ -48,8 +70,41 @@ function Tasks() {
     <>
       {
         loaded.current &&
-        <GridComponent
-        />
+        <Layer>
+          <RoundedBox className='w-[20%]' >
+            {
+              currentTask && currentTask.subtasks && (
+                <DynamicSelector
+                  title='subtask'
+                  elements={currentTask.subtasks}
+                  selectedId={tasks.currentSubtask}
+                  onSelect={(id) => setSubTaskId(id)}
+                  onClick={(subtaskName) => addNewSubtask(subtaskName)}
+                  newTabElement={'Crear subtarea'}
+                />
+              )
+            }
+          </RoundedBox>
+          <RoundedBox className='w-[50vw]' >
+            {subtask ?
+              <SubtaskController>
+                <SubtaskList subtask={subtask} onChange={handleChange} />
+              </SubtaskController>
+              :
+              <div className='flex flex-col justify-center items-center text-center gap-4 w-full'>
+                <h2 className='text-lg font-medium'>
+                  ¡Oops! Parece que hay un pequeño problema 😅
+                </h2>
+                <p>
+                  📝¡Hola! Todavía no se ha creado ninguna subtarea o no se ha seleccionado ninguna tarea.
+                </p>
+              </div>
+            }
+          </RoundedBox>
+          <RoundedBox className='w-[20%]' >
+            testing
+          </RoundedBox>
+        </Layer>
       }
     </>
   );
