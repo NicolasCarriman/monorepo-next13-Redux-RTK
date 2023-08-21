@@ -43,4 +43,5 @@ export const {
   addCategory,
   updateCategory,
 } = teamSlice.actions;
+
 export default teamSlice.reducer;

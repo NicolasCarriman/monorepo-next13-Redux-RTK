@@ -17,7 +17,6 @@ const taskSlice = createSlice({
 
       const currentTask = tasks.find((t) => (t.taskId === currentTaskId));
       if (!currentTask?.subtasks) return;
-      //todo: verify if is possible
 
       const taskWithNewSubtask: ITask = {
         ...currentTask,
@@ -82,4 +81,5 @@ export const {
   updateTask,
   addSubtask
 } = taskSlice.actions;
+
 export default taskSlice.reducer;

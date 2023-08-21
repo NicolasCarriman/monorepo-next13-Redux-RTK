@@ -10,13 +10,13 @@ import {
 } from '@core/redux/reducers/taskSlice/task.slice';
 import { ITask, statusType, subtask, subtaskItem } from '@core/models';
 import { useTeam } from './useTeam';
-import { Subtask, TaskClass } from '@core/utils';
+import { Subtask, TaskClass } from '@core/utils/task';
 
 export const useTask = () => {
   const taskState = useAppSelector(taskSelector) as TaskState;
   const dispatch = useAppDispatch();
   const { getCurrentCategory } = useTeam();
-
+ 
   const getCurrentTask = (taskId: string) => {
     const tasks = taskState.tasks;
     const currentTask: ITask | undefined = tasks.find((t: ITask) => t.taskId === taskId);

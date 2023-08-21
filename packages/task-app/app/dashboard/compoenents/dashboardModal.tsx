@@ -1,7 +1,6 @@
 'use client';
 
 import { ButtonAdd } from '@app/components/ui/button-icon/buttonIcon';
-import ModalComponent from '@app/components/ui/modal/modal';
 import { useModal } from '@app/components/ui/hooks';
 import React, { useEffect, useState } from 'react';
 import TaskForm from './taskForm';
@@ -9,6 +8,7 @@ import { useTeam } from '@app/hooks/useTeam';
 import useLocalStorage from '@app/hooks/useLocalStorage';
 import withThreeDForm, { CubePerspective } from '@app/components/hoc/withThreeD';
 import TaskPreview from './taskPreview';
+import ModalComponent from '@app/components/ui/modal/modal';
 
 const TaskOverview = withThreeDForm(CubePerspective, TaskForm);
 

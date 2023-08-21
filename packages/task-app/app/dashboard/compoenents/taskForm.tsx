@@ -271,6 +271,7 @@ function TaskForm({
       (c) => c.categoryid === category.id
     );
     if (!currentCategory) return;
+
     const updatedCategory: ITeamCategory = {
       name: currentCategory.name,
       tasks: [...currentCategory.tasks, newTask.taskId],
@@ -440,108 +441,3 @@ function TaskForm({
   );
 }
 export default TaskForm;
-
-/*
-  <form>
-
-        <div className="flex-col gap-3 w-100% ">
-
-          <div className="mb-4 ">
-            <p className="font-semibold text-lg mb-2">Members:</p>
-            <List
-              className="flex flex-wrap border-none gap-1"
-              data={members}
-              renderedItem={(item) => (
-                <TaskTags variant="small">
-                  {item.name}
-                  <span
-                    onClick={() => deleteMembers(item.id)}
-                    className="ml-2 font-medium cursor-pointer">
-                    X
-                  </span>
-                </TaskTags>
-              )}
-            />
-          </div>
-          <InputSearch
-            type='userPicker'
-            placeHolder="Users"
-            data={users}
-            render={(user, fn) => (
-              <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
-                <AvatarComponent variant="small" label={user.name} />
-                <p className="ml-2 font-medium">{user.name}</p>
-                <p className="ml-2 font-light">{user.departament}</p>
-              </ListItem>
-            )}
-          />
-
-          <InputSearch
-            name="team"
-            placeHolder="Team"
-            data={teams}
-            render={(team, fn) => (
-              <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
-                <p>{team.departament}</p>
-              </ListItem>
-            )}
-          />
-
-          {!isNewTeam ? (
-            <InputSearch
-              name="teamcategory"
-              placeHolder="Category"
-              data={categories ? categories : []}
-              render={(category, fn) => (
-                <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
-                  <p>{category.name}</p>
-                </ListItem>
-              )}
-            />
-          ) : (
-            <FloatingLabelInput
-              name="teamcategory"
-              required
-              placeholder="Category"
-              onChange={(e) => setTaskName(e.target.value)}
-            />
-          )}
-
-            <FloatingLabelInput
-              name="taskName"
-              required
-              placeholder="Task Name"
-              onChange={(e) => setTaskName(e.target.value)}
-            />
-
-            <FloatingLabelInput
-              name="taskDescription"
-              required
-              placeholder="Task Description"
-              onChange={(e) => setTaskDescription(e.target.value)}
-            />
-            <InputSearch
-              placeHolder="Priority"
-              data={priorities}
-              render={(priority, fn) => (
-                <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
-                  <TaskPriority priority={priority.name} />
-                </ListItem>
-              )}
-            />
-
-        </div>
-
-        {error && <div className="text-red-500 text-center mt-4">{error}</div>}
-
-        <div className="flex justify-center min-t-[6vh] mt-4">
-          <ButtonComponent
-            type='button'
-            size="large"
-            variant="hover"
-            label="Create Task"
-            onClick={next}
-          />
-        </div>
-    </form>
-*/
