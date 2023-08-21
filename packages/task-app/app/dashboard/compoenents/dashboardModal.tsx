@@ -7,15 +7,16 @@ import React, { useEffect, useState } from 'react';
 import TaskForm from './taskForm';
 import { useTeam } from '@app/hooks/useTeam';
 import useLocalStorage from '@app/hooks/useLocalStorage';
-import { priorityType } from '@core/models';
+import withThreeDForm, { CubePerspective } from '@app/components/hoc/withThreeD';
+import TaskPreview from './taskPreview';
+
+const TaskOverview = withThreeDForm(CubePerspective, TaskForm);
 
 function DashboardModal() {
   const { isOpen, onOpen, onClose } = useModal();
-  const [taskName, setTaskName] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [taskPriority, setTaskPriority] = useState<priorityType | string>('');
   const { team } = useTeam();
-  
+
+  // eslint-disable-next-line no-unused-vars
   const [value, setValue] = useLocalStorage('team', {});
 
   const [isMounted, setIsMounted] = useState(false);
@@ -26,6 +27,7 @@ function DashboardModal() {
 
   useEffect(() => {
     setValue(team);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [team]);
 
   if (!isMounted) return null;
@@ -36,22 +38,25 @@ function DashboardModal() {
       <ModalComponent
         isOpen={isOpen}
         onClose={onClose}
-        taskName={taskName}
-        taskDescription={taskDescription}
-        taskPriority={taskPriority}
         title={'Create Task'}
       >
-       <TaskForm
-          closeModal={onClose}
-          setTaskName={setTaskName}
-          setTaskDescription={setTaskDescription}
-          setTaskPriority={setTaskPriority}
-        />
+        <div className="flex flex-row md:flex-row gap-3">
+
+          <TaskOverview
+            closeModal={onClose}
+            firstFace={<TaskPreview />}
+            secondFace={<div> second face </div>}
+
+            next={function (): void {
+              throw new Error('Function not implemented.');
+            } } prev={function (): void {
+              throw new Error('Function not implemented.');
+            } }
+            />
+        </div>
       </ModalComponent>
     </>
   );
 }
 
 export default DashboardModal;
-
-

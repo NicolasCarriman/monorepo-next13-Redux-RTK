@@ -1,7 +1,7 @@
 'useClient';
 
 import Button from '@app/components/common/button';
-import Input from '@app/components/common/input';
+import Input from '@app/components/common/Input';
 import React, { useState } from 'react';
 import { useTask } from '@app/hooks/useTasks';
 import { subtaskItem } from '@core/models';

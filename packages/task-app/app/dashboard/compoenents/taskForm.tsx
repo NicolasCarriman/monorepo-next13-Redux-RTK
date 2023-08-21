@@ -26,20 +26,215 @@ import React, { useState } from 'react';
 import '../../style/animate.module.css';
 import FloatingLabelInput from '@app/components/common/inputLabel';
 
+interface IInputView {
+  error: string | undefined;
+  handleClick: () => void;
+}
+
+type itemType = {
+  name: string,
+  id: string
+}
+
+// todo: implement better type name for priorityType
+
+interface IFirstInputView extends IInputView {
+  priorities: itemType[];
+  // eslint-disable-next-line no-unused-vars
+  handlePriority: (name: priorityType, priority: string, fn: onClickCallBack) => void;
+}
+
+const FirstInputView: React.FC<IFirstInputView> = (props) => {
+
+  const { priorities, handlePriority, error, handleClick } = props;
+
+  return (
+    <>
+      <div className="flex-col gap-3 w-100% ">
+
+        <FloatingLabelInput
+          name="taskName"
+          required
+          placeholder="Task Name"
+        />
+
+        <FloatingLabelInput
+          name="taskDescription"
+          required
+          placeholder="Task Description"
+        />
+
+        <InputSearch
+          placeHolder="Priority"
+          data={priorities}
+          render={(priority, fn) => (
+            <ListItem onClick={() => handlePriority(priority.name, priority.id, fn)}>
+              <TaskPriority priority={priority.name} />
+            </ListItem>
+          )}
+        />
+
+      </div>
+
+      {
+        error && <div className="text-red-500 text-center mt-4">{error}</div>
+      }
+
+      <div className="flex justify-center min-t-[6vh] mt-4">
+        <ButtonComponent
+          type='button'
+          size="large"
+          variant="hover"
+          label="Create Task"
+          onClick={handleClick}
+        />
+      </div>
+    </>
+  );
+};
+
+
+
+interface ISecondInputView extends IInputView {
+  members: itemType[];
+  users: IUser[];
+  teams: ProjectTeam[];
+  isNewTeam: boolean;
+  categories: category[] | undefined;
+
+  // eslint-disable-next-line no-unused-vars
+  deleteMembers: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  handleTeam: (name: string, priority: string, fn: onClickCallBack) => void;
+  // eslint-disable-next-line no-unused-vars
+  handleCategory: (name: string, priority: string, fn: onClickCallBack) => void;
+  // eslint-disable-next-line no-unused-vars
+  handleUsers: (name: string, priority: string, fn: onClickCallBack) => void;
+
+}
+
+const SecondInputView: React.FC<ISecondInputView> = (props) => {
+  const {
+    members,
+    users,
+    teams,
+    isNewTeam,
+    categories,
+    error,
+
+    deleteMembers,
+    handleTeam,
+    handleCategory,
+    handleUsers,
+    handleClick
+  } = props;
+
+  return (
+    <>
+      <div className="flex-col gap-3 w-100% ">
+
+        <div className="mb-4 ">
+          <p className="font-semibold text-lg mb-2">Members:</p>
+          <List
+            className="flex flex-wrap border-none gap-1"
+            data={members}
+            renderedItem={(item) => (
+              <TaskTags variant="small">
+                {item.name}
+                <span
+                  onClick={() => deleteMembers(item.id)}
+                  className="ml-2 font-medium cursor-pointer">
+                  X
+                </span>
+              </TaskTags>
+            )}
+          />
+        </div>
+        <InputSearch
+          type='userPicker'
+          placeHolder="Users"
+          data={users}
+          render={(user, fn) => (
+            <ListItem onClick={() => handleUsers(user.name, user.id, fn)}>
+              <AvatarComponent variant="small" label={user.name} />
+              <p className="ml-2 font-medium">{user.name}</p>
+              <p className="ml-2 font-light">{user.departament}</p>
+            </ListItem>
+          )}
+        />
+
+        <InputSearch
+          name="team"
+          placeHolder="Team"
+          data={teams}
+          render={(team, fn) => (
+            <ListItem onClick={() => handleTeam(team.departament, team.id, fn)}>
+              <p>{team.departament}</p>
+            </ListItem>
+          )}
+        />
+
+        {!isNewTeam ? (
+          <InputSearch
+            name="teamcategory"
+            placeHolder="Category"
+            data={categories ? categories : []}
+            render={(category, fn) => (
+              <ListItem onClick={() => handleCategory(category.name, category.id, fn)}>
+                <p>{category.name}</p>
+              </ListItem>
+            )}
+          />
+        ) : (
+          <FloatingLabelInput
+            name="teamcategory"
+            required
+            placeholder="Category"
+          />
+        )}
+
+        {
+          error && <div className="text-red-500 text-center mt-4">{error}</div>
+        }
+
+        <div className="flex justify-center min-t-[6vh] mt-4">
+          <ButtonComponent
+            type='button'
+            size="large"
+            variant="hover"
+            label="Create Task"
+            onClick={handleClick}
+          />
+        </div>
+
+      </div>
+    </>
+  );
+};
+
+
+
 interface TaskFormModal {
   closeModal: () => void;
-  setTaskName: React.Dispatch<React.SetStateAction<string>>;
-  setTaskDescription: React.Dispatch<React.SetStateAction<string>>;
-  setTaskPriority: React.Dispatch<React.SetStateAction<priorityType | string>>;
+  next: () => void;
+  prev: () => void;
+}
+
+type formViews = {
+  firstInputView: boolean,
+  secondInputView: boolean
 }
 
 function TaskForm({
   closeModal,
-
-  setTaskName,
-  setTaskDescription,
-  setTaskPriority,
+  next,
+  prev,
 }: TaskFormModal) {
+
+  const [views, setViews] = useState<formViews>({
+    firstInputView: true,
+    secondInputView: false
+  });
 
   const [error, setError] = useState<undefined | string>(undefined);
   const [members, setMembers] = useState<{ name: string; id: string }[]>([]);
@@ -154,7 +349,6 @@ function TaskForm({
   ) => {
     fn(name);
     setPriority(name);
-    setTaskPriority(name);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -199,9 +393,57 @@ function TaskForm({
     closeModal();
   };
 
+  function showSecondView() {
+    setViews({
+      firstInputView: false,
+      secondInputView: true
+    });
+  };
+
+  const handleFirstInput = () => {
+    next();
+    showSecondView();
+  };
+
+
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="gap-6 sm:flex-row-reverse bg-white p-6 shadow-lg">
+    <form>
+      {
+        views.firstInputView &&
+        <FirstInputView
+          priorities={priorities}
+          handlePriority={handlePriority}
+          error={error}
+          handleClick={handleFirstInput}
+        />
+      }
+
+      {
+        views.secondInputView &&
+        <SecondInputView
+          error={error}
+          handleClick={next}
+          members={members}
+          users={users}
+          teams={teams}
+          isNewTeam={isNewTeam}
+          categories={categories}
+
+          deleteMembers={deleteMembers}
+          handleTeam={handleTeam}
+          handleCategory={handleCategory}
+          handleUsers={handleUsers}
+        />
+      }
+    </form>
+  );
+}
+export default TaskForm;
+
+/*
+  <form>
+
         <div className="flex-col gap-3 w-100% ">
 
           <div className="mb-4 ">
@@ -294,15 +536,12 @@ function TaskForm({
 
         <div className="flex justify-center min-t-[6vh] mt-4">
           <ButtonComponent
+            type='button'
             size="large"
             variant="hover"
-            type="submit"
             label="Create Task"
+            onClick={next}
           />
         </div>
-      </div>
     </form>
-
-  );
-}
-export default TaskForm;
+*/
