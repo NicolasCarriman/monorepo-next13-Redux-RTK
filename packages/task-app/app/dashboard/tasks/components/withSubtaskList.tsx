@@ -1,11 +1,11 @@
 'useClient';
 
 import Button from '@app/components/common/button';
-import Input from '@app/components/common/Input';
 import React, { useState } from 'react';
 import { useTask } from '@app/hooks/useTasks';
 import { subtaskItem } from '@core/models';
 import { getRandomId } from '@app/utils';
+import Input from '../../../../components/common/input';
 
 interface SubtaskController {
   children: React.ReactNode;

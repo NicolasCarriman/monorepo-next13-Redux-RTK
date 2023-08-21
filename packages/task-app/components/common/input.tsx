@@ -5,6 +5,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   setValue?: React.Dispatch<React.SetStateAction<string>>;
 }
 
+//inputComponent
+
 function Input({ setValue, ...props }: InputProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (setValue) {
