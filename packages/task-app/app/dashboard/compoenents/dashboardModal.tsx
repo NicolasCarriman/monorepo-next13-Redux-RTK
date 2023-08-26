@@ -3,14 +3,11 @@
 import { ButtonAdd } from '@app/components/ui/button-icon/buttonIcon';
 import { useModal } from '@app/components/ui/hooks';
 import React, { useEffect, useState } from 'react';
-import TaskForm from './taskForm';
 import { useTeam } from '@app/hooks/useTeam';
 import useLocalStorage from '@app/hooks/useLocalStorage';
-import withThreeDForm, { CubePerspective } from '@app/components/hoc/withThreeD';
-import TaskPreview from './taskPreview';
 import ModalComponent from '@app/components/ui/modal/modal';
-
-const TaskOverview = withThreeDForm(CubePerspective, TaskForm);
+import TaskCreator from './taskCreator';
+import ContextProvider from '../context/provider';
 
 function DashboardModal() {
   const { isOpen, onOpen, onClose } = useModal();
@@ -27,35 +24,22 @@ function DashboardModal() {
 
   useEffect(() => {
     setValue(team);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [team]);
 
   if (!isMounted) return null;
 
   return (
-    <>
+    <ContextProvider>
       <ButtonAdd onClick={onOpen} />
       <ModalComponent
         isOpen={isOpen}
         onClose={onClose}
         title={'Create Task'}
       >
-        <div className="flex flex-row md:flex-row gap-3">
-
-          <TaskOverview
-            closeModal={onClose}
-            firstFace={<TaskPreview />}
-            secondFace={<div> second face </div>}
-
-            next={function (): void {
-              throw new Error('Function not implemented.');
-            } } prev={function (): void {
-              throw new Error('Function not implemented.');
-            } }
-            />
-        </div>
+        <TaskCreator closeModal={onClose} />
       </ModalComponent>
-    </>
+    </ContextProvider>
   );
 }
 

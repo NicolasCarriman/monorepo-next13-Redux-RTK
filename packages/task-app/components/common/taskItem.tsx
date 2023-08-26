@@ -23,23 +23,23 @@ export const TaskPriority: React.FC<TaskPriorityProps> = ({ priority, ...rest })
 
   switch(priority) {
     case 'high':
-      fontColor = '#b90000';
+      fontColor = 'text-priority-100';
       break;
     case 'low':
-      fontColor = '#0bb900';
+      fontColor = 'text-priority-200';
       break;
     case 'medium':
-      fontColor = '#ff7600';
+      fontColor = 'text-priority-300';
       break;
     case 'none':
-      fontColor = '#000000';
+      fontColor = 'text-[#000000]';
       break;
     default:
-      fontColor = '#000000';
+      fontColor = 'text-[#000000]';
       break;
   }
 
-  const taskPriorityClass = `text-[${fontColor}] mr-2 flex justify-center align-center`;
+  const taskPriorityClass = `${fontColor} mr-2 flex justify-center align-center`;
   return (
     <p
       className={taskPriorityClass}

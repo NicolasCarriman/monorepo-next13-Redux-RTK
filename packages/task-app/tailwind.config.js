@@ -10,6 +10,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        priority: {
+          100: '#ff3b3b', //red
+          200: '#0bb900', //green
+          300: '#ff7600' //orange
+        },
         blue: {
           100: '#275F90',
           200: '#17354E',
@@ -31,7 +36,7 @@ module.exports = {
       boxShadow: {
         custom: '-5px -1px 64px #bebebe, -32px -32px 64px #ffffff',
         hover: 'inset 200px 2px #17354E',
-        out: 'inset 0 0 0 0 #66668d'
+        out: 'inset 0 0 0 0 #66668d',
       },
       transformStyle: {
         '3d': 'preserve-3d',

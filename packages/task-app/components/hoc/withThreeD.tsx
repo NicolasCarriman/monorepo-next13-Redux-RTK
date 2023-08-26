@@ -3,7 +3,6 @@ import React, { forwardRef, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import style from '../../app/style/cube.module.css';
 import Box from '../common/box';
-import { priorityType } from '@core/models';
 
 const FaceComponent: React.FC<React.ComponentProps<'div'>> = ({ className, ...rest }) => {
   return (
@@ -56,20 +55,13 @@ interface WrappedFormProps {
   prev: () => void;
 }
 
-interface IForm {
-  closeModal: () => void;
-  setTaskName: React.Dispatch<React.SetStateAction<string>>;
-  setTaskDescription: React.Dispatch<React.SetStateAction<string>>;
-  setTaskPriority: React.Dispatch<React.SetStateAction<priorityType | string>>;
-  next: () => void;
-  prev: () => void;
-}
-
 function withThreeDForm<C extends React.JSX.IntrinsicAttributes, F>(
   WrappedCube: React.ComponentType<C>,
   WrappedForm: React.ComponentType<F & WrappedFormProps>,
 ) {
-  const ComponentWithThreeD: React.FC<C & F> = (cubeProps: C, formProps: F) => {
+  const ComponentWithThreeD: React.FC<C & F> = ({ cubeProps, formProps }: { cubeProps: C, formProps: F }) => {
+
+    console.log('formProps:', formProps);
 
     const cubeRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +83,7 @@ function withThreeDForm<C extends React.JSX.IntrinsicAttributes, F>(
 
     const extraFormProps: WrappedFormProps = {
       next: nextView,
-      prev: prevView
+      prev: prevView,
     };
 
 
@@ -100,7 +92,7 @@ function withThreeDForm<C extends React.JSX.IntrinsicAttributes, F>(
         <Box>
           <WrappedForm {...formProps} {...extraFormProps} />
         </Box>
-        <Box className='h-auto flex justify-center items-center'>
+        <Box className='h-auto flex justify-center items-center '>
           <WrappedCube ref={cubeRef} {...cubeProps} />
         </Box>
       </>

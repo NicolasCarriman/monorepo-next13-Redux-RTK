@@ -23,7 +23,7 @@ function ModalComponent({
   const modalComponent = isOpen ? (
     <div
       onClick={onClose}
-      className="z-[200] fixed inset-0 flex items-center justify-center backdrop-filter backdrop-brightness-0 backdrop-opacity-50 transition-opacity duration-500"
+      className="z-[200] fixed inset-0 flex items-center justify-center backdrop-filter backdrop-brightness-75 backdrop-blur-md transition-opacity duration-500"
     >
       <div
         className="bg-white p-4 md:p-6 w-[70vw] rounded-lg shadow-xl z-[300] transform transition-transform duration-500"
