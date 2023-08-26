@@ -22,8 +22,9 @@ interface useTeamsHook {
   //eslint-disable-next-line
   updateTeamCategory: (category: ITeamCategory) => void
   //eslint-disable-next-line
-  addNewCategory: (category: Partial<ITeamCategory>) => void
-  team: ITeam;
+  addNewCategory: (category: ITeamCategory) => void
+  getTeamCategories: () => ITeamCategory[];
+  team: ITeam; 
 };
 
 export const useTeam = (): useTeamsHook => {
@@ -48,25 +49,16 @@ export const useTeam = (): useTeamsHook => {
     return currentTasks;
   };
 
+  const getTeamCategories = () => {
+    return team.teamCategory;
+  };
+
   const setCurrenCategory = (categoryId: string) => {
     dispatch(selectCategory(categoryId));
   };
 
-  const addNewCategory = (category: Partial<ITeamCategory>) => {
-    if (!category.name) return;
-    if(!category.tasks) return;
-    if(!category.usersId) return;
-    if(!category.categoryid) return;
-
-    const newCategory: ITeamCategory = {
-      name: category.name,
-      tasks: category.tasks,
-      usersId: category.usersId,
-      categoryid: category.categoryid,
-      goals: []
-    };
-
-    dispatch(addCategory(newCategory));
+  const addNewCategory = (category: ITeamCategory) => {
+    dispatch(addCategory(category));
   };
 
   const addCategoryByName = (name: string) => {
@@ -113,6 +105,7 @@ export const useTeam = (): useTeamsHook => {
     addGoal,
     addNewCategory,
     updateTeamCategory,
+    getTeamCategories,
     team
   };
 };
