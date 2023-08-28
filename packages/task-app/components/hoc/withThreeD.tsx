@@ -20,7 +20,7 @@ const FaceComponent: React.FC<React.ComponentProps<'div'>> = ({ className, ...re
   );
 };
 
-interface CubeProps extends React.ComponentProps<'div'> {
+export interface CubeProps extends React.ComponentProps<'div'> {
   firstFace: React.ReactNode;
   secondFace: React.ReactNode;
 }
@@ -50,7 +50,7 @@ export const CubePerspective = forwardRef<cubeRef, CubeProps>((
   );
 });
 
-interface WrappedFormProps {
+export interface WrappedFormProps {
   next: () => void;
   prev: () => void;
 }
@@ -59,9 +59,7 @@ function withThreeDForm<C extends React.JSX.IntrinsicAttributes, F>(
   WrappedCube: React.ComponentType<C>,
   WrappedForm: React.ComponentType<F & WrappedFormProps>,
 ) {
-  const ComponentWithThreeD: React.FC<C & F> = ({ cubeProps, formProps }: { cubeProps: C, formProps: F }) => {
-
-    console.log('formProps:', formProps);
+  const ComponentWithThreeD = ({ cubeProps, formProps }: { cubeProps: C, formProps: F }) => {
 
     const cubeRef = useRef<HTMLDivElement>(null);
 

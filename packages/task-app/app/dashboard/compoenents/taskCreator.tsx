@@ -1,6 +1,6 @@
 'use client';
 
-import withThreeDForm, { CubePerspective } from '@app/components/hoc/withThreeD';
+import withThreeDForm, { CubePerspective  } from '@app/components/hoc/withThreeD';
 import React from 'react';
 import TaskForm from './taskForm';
 import { FirstFacePreview, SecondFaceTaskPreview } from './taskPreview';

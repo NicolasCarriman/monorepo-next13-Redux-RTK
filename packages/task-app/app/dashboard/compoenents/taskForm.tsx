@@ -18,7 +18,7 @@ import { FirstInputView, SecondInputView } from './formViews';
 
 
 
-interface TaskFormModal {
+export interface TaskFormModal {
   closeModal: () => void;
   next: () => void;
   prev: () => void;
@@ -62,6 +62,7 @@ function TaskForm({
   const { getProjectTeams, getUsersProject } = useProject();
 
   console.log(closeModal);
+
   const users = getUsersProject();
 
   const teams = new CollectionManager<ProjectTeam>() //get teams and the option to add new team
