@@ -51,8 +51,7 @@ function TaskForm({
     setTaskNewTeam,
     setTaskNewCategory,
     isNewTeam,
-    setTaskTeam,
-    buildTask
+    setTaskTeam
   } = useTaskBuilder();
   const {
     setSelectedTeam,
@@ -172,9 +171,6 @@ function TaskForm({
           onClose={closeModal}
         />
       }
-      <button type='button' onClick={() => {
-        buildTask();
-      }}>test</button>
     </form>
   );
 }
