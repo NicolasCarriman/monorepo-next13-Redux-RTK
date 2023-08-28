@@ -4,6 +4,9 @@ import { Dispatch, SetStateAction, createContext, useContext } from 'react';
 export interface ITaskTemplate extends ITask {
   isNewTeam: boolean;
   isNewCategory: boolean;
+  taskCategoryId: string;
+  taskTeam: string;
+  taskTeamId: string;
 }
 
 export interface ITaskContext {
@@ -18,12 +21,15 @@ export const TaskContext = createContext<ITaskContext>({
     taskName: '',
     taskDate: '',
     taskCategory: '',
+    taskCategoryId: '',
     taskUsersId: [],
     taskPriority: 'none',
     taskStatus: 'inProgress',
-    taskId: ''
+    taskId: '',
+    taskTeam: '',
+    taskTeamId: ''
   },
-  setTaskContext: () => {},
+  setTaskContext: () => {}
 });
 
 export const useTaskContext = () => useContext(TaskContext);
